@@ -1,10 +1,10 @@
 class Card:
-    def __init__(self, value, is_joker=False):
+    def __init__(self, value: int , is_joker: bool = False):
      
         self.value = value
         self.is_joker = is_joker
 
-    def isEqual(self, other):
+    def __eq__(self, other):
     
         if not isinstance(other, Card):
             return False
