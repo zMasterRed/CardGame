@@ -1,13 +1,5 @@
 from src.card import Card
-
-
-class CardGameError(Exception):
-    pass
-
-
-class InsufficientHealth(CardGameError):
-    def __init__(self):
-        self.message("")
+from src.exceptions import InsufficientHealth
 
 
 class Player:
@@ -25,7 +17,7 @@ class Player:
         self.hand = new_hand
 
     def decrease_health(self):
-        if self.health is not 0:
-            self.health = self.health - 1
+        if self.health > 0:
+            self.health -= 1
         else:
             raise InsufficientHealth()
