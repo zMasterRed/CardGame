@@ -1,5 +1,3 @@
-import arcade
-
 # Window Size
 fX = 1000
 fY = 700
