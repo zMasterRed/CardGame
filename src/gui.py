@@ -4,7 +4,7 @@ from . import settings
 
 class MenuView(arcade.View):
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color((6, 56, 138))
 
     def on_draw(self):
         self.clear()
@@ -13,9 +13,10 @@ class MenuView(arcade.View):
             "CardGame",
             settings.fX / 2,
             600,
-            arcade.color.WHITE,
+            arcade.color.WHITE_SMOKE,
             anchor_x="center",
             font_size=55,
+            bold=True,
         )
 
         arcade.draw_rect_filled(
