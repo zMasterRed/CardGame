@@ -1,5 +1,5 @@
 import arcade
-import src.settings
+from src import settings
 
 
 class MenuView(arcade.View):
