@@ -1,5 +1,7 @@
+from gui import runMenu
+
 def main():
-    pass
+    runMenu()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,6 @@
 import arcade
 
-from src import settings
-
+import settings
 
 class MenuView(arcade.View):
     def on_show_view(self):
@@ -52,7 +51,7 @@ class MenuView(arcade.View):
             arcade.color.LIGHT_GRAY,
         )
         arcade.draw_text(
-            "Play",
+            "History",
             settings.fX / 2,
             240,
             arcade.color.BLACK,
