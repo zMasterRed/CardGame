@@ -3,3 +3,10 @@
 **/.DS_Store
 .coverage
 venv/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.tox/
+.coverage
+htmlcov/
+.vscode/
