@@ -46,6 +46,13 @@ class TableView(arcade.View):
         for i in self.enemy_heart:
             i.draw()
 
+        
+        arcade.draw.text(
+            "Enemy couples: ", 30, 400,
+            arcade.color.WHITE, 14, bold = True
+        )
+
+
 
         arcade.draw_rect_outline(
             arcade.XYWH(85, 460, 75,105),
