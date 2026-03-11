@@ -48,7 +48,11 @@ class TableView(arcade.View):
 
         
         arcade.draw.text(
-            "Enemy couples: ", 30, 400,
+            "Enemy couples: ", 30, 500,
+            arcade.color.WHITE, 14, bold = True
+        )
+        arcade.draw.text(
+            "Player couples: ", 30, 400,
             arcade.color.WHITE, 14, bold = True
         )
 
