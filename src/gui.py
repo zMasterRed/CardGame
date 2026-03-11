@@ -52,7 +52,7 @@ class MenuView(arcade.View):
             arcade.color.LIGHT_GRAY,
         )
         arcade.draw_text(
-            "Play",
+            "History",
             settings.fX / 2,
             240,
             arcade.color.BLACK,
