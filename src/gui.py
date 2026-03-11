@@ -1,6 +1,6 @@
 import arcade
 
-import settings
+from src import settings
 
 class MenuView(arcade.View):
     def on_show_view(self):
