@@ -1,0 +1,8 @@
+class CardGameError(Exception):
+    pass
+
+
+class InsufficientHealth(CardGameError):
+    def __init__(self):
+        msg = "Player has not enough health"
+        super().__init__(msg)
