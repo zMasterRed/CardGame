@@ -8,7 +8,7 @@ class InsufficientHealth(CardGameError):
         super().__init__(msg)
 
 
-class PlayerNotFound:
+class PlayerNotFound(CardGameError):
     def __init__(self):
         msg = "Player not found"
         super().__init__(msg)
