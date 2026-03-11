@@ -33,12 +33,12 @@ class TableView(arcade.View):
 
         card = ["A","2","3","4","5","6","7","8","9"]
 
-        self.txt_enemy_c = arcade.text(
-            "Enemy couples: ", 30, 500,
+        self.txt_enemy_c = arcade.Text(
+            "Enemy couples: ", 30, 375,
             arcade.color.WHITE, 14, bold = True
         )
-        self.txt_player_c = arcade.text(
-            "Player couples: ", 30, 400,
+        self.txt_player_c = arcade.Text(
+            "Player couples: ", 30, 315,
             arcade.color.WHITE, 14, bold = True
         )
 
