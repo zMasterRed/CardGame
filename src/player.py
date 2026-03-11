@@ -1,5 +1,5 @@
-from src.card import Card
-from src.exceptions import InsufficientHealth
+from card import Card
+from exceptions import InsufficientHealth
 
 
 class Player:

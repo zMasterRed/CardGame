@@ -1,6 +1,6 @@
 import arcade
 
-from src import settings
+import settings
 
 
 class TableView(arcade.View):

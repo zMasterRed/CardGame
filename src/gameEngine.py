@@ -1,9 +1,9 @@
 import random
 from typing import List, Optional
 
-from src.card import Card
-from src.exceptions import PlayerNotFound
-from src.player import Player
+from card import Card
+from exceptions import PlayerNotFound
+from player import Player
 
 
 class GameEngine:

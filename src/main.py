@@ -1,4 +1,4 @@
-from src.gui import runMenu
+from gui import runMenu
 
 
 def main():
