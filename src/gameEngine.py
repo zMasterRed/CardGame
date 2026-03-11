@@ -2,6 +2,7 @@ import random
 from typing import List, Optional
 from src.card import Card
 from src.player import Player
+from src.exceptions import PlayerNotFound
 
 class GameEngine:
     def __init__(self) -> None:
@@ -31,10 +32,10 @@ class GameEngine:
         
         if self.player:
             return self.player.hand
-        return []
+        raise PlayerNotFound()
 
     def get_enemy_hand(self) -> List[Card]:
         
         if self.enemy:
             return self.enemy.hand
-        return []
+        raise PlayerNotFound()
