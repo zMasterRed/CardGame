@@ -1,7 +1,7 @@
 # Window Size
-fX = 1000
-fY = 700
+fX : int = 1000
+fY : int = 700
 
 # Button Size
-bX = 200
-bY = 50
+bX : int = 200
+bY : int = 50
