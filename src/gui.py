@@ -1,11 +1,12 @@
 import arcade
 
 from src import settings
+from src.table import TableView
 
 
 class MenuView(arcade.View):
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color((6, 56, 138))
 
     def on_draw(self):
         self.clear()
@@ -14,9 +15,10 @@ class MenuView(arcade.View):
             "CardGame",
             settings.fX / 2,
             600,
-            arcade.color.WHITE,
+            arcade.color.WHITE_SMOKE,
             anchor_x="center",
             font_size=55,
+            bold=True,
         )
 
         arcade.draw_rect_filled(
@@ -60,6 +62,36 @@ class MenuView(arcade.View):
             anchor_y="center",
             font_size=20,
         )
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        bY2 = settings.bY / 2
+
+        bLeft = settings.fX / 2 - settings.bX / 2
+        bRight = settings.fX / 2 + settings.bX / 2
+
+        if bLeft < x < bRight:
+
+            # Play Button
+            topPlay = 400 + bY2
+            bottomPlay = 400 - bY2
+            # Rule Button
+            topRule = 320 + bY2
+            bottomRule = 320 - bY2
+            # History Button
+            topHistory = 240 + bY2
+            bottomHistory = 240 - bY2
+
+            if bottomPlay < y < topPlay:
+                # open Table
+                game = TableView()
+                self.window.show_view(game)
+
+            if bottomRule < y < topRule:
+                # open Rule
+                print("Rule")
+            if bottomHistory < y < topHistory:
+                # open History
+                print("History")
 
 
 def runMenu():
