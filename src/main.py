@@ -1,5 +1,6 @@
 from src.gui import runMenu
 
+
 def main():
     runMenu()
 
