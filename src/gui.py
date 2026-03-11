@@ -64,13 +64,13 @@ class MenuView(arcade.View):
         )
 
     def on_mouse_press(self, x, y, button, modifiers):
-        bY2 = settings.bY/2
-        
-        bLeft = settings.fX/2 - settings.bX/2
-        bRight = settings.fX/2 + settings.bX/2
+        bY2 = settings.bY / 2
+
+        bLeft = settings.fX / 2 - settings.bX / 2
+        bRight = settings.fX / 2 + settings.bX / 2
 
         if bLeft < x < bRight:
-            
+
             # Play Button
             topPlay = 400 + bY2
             bottomPlay = 400 - bY2
@@ -81,17 +81,17 @@ class MenuView(arcade.View):
             topHistory = 240 + bY2
             bottomHistory = 240 - bY2
 
-            if(bottomPlay < y < topPlay):
+            if bottomPlay < y < topPlay:
                 # open Table
                 game = TableView()
                 self.window.show_view(game)
 
-            if(bottomRule < y < topRule):
+            if bottomRule < y < topRule:
                 # open Rule
                 print("Rule")
-            if(bottomHistory < y < topHistory):
+            if bottomHistory < y < topHistory:
                 # open History
-                print("History") 
+                print("History")
 
 
 def runMenu():
