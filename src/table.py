@@ -49,11 +49,9 @@ class TableView(arcade.View):
         arcade.set_background_color((5, 105, 25))
 
     def on_draw(self):
-        self.clear()
+        self.clear();
 
-        arcade.draw_line(
-            0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
-        )
+        arcade.draw_line(0, settings.fY/2, settings.fX, settings.fY/2,arcade.color.WHITE, 1)
 
         for i in self.player_heart:
             i.draw()
