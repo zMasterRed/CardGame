@@ -10,8 +10,8 @@ def test_card_init():
 
 def test_joker_init():
 
-    card = Card(10, True)
-    assert card.value == 10
+    card = Card(0, True)
+    assert card.value == 0
     assert card.is_joker is True
 
 
