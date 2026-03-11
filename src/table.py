@@ -8,6 +8,10 @@ class TableView(arcade.View):
         self.enemy_heart = []
         self.player_heart = []
 
+        self.txt_enemy_c = None
+        self.txt_player_c = None
+
+
         self.path_joker = ":resources:images/cards/cardJoker.png"
         self.path_card_back = ":resources:images/cards/cardBack_blue2.png"
 
@@ -29,6 +33,15 @@ class TableView(arcade.View):
 
         card = ["A","2","3","4","5","6","7","8","9"]
 
+        self.txt_enemy_c = arcade.text(
+            "Enemy couples: ", 30, 500,
+            arcade.color.WHITE, 14, bold = True
+        )
+        self.txt_player_c = arcade.text(
+            "Player couples: ", 30, 400,
+            arcade.color.WHITE, 14, bold = True
+        )
+
 
     def on_show_view(self):
         arcade.set_background_color((5, 105, 25))
@@ -47,14 +60,8 @@ class TableView(arcade.View):
             i.draw()
 
         
-        arcade.draw.text(
-            "Enemy couples: ", 30, 500,
-            arcade.color.WHITE, 14, bold = True
-        )
-        arcade.draw.text(
-            "Player couples: ", 30, 400,
-            arcade.color.WHITE, 14, bold = True
-        )
+        self.txt_enemy_c.draw()
+        self.txt_player_c.draw()
 
 
 
