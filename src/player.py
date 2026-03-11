@@ -17,7 +17,6 @@ class Player:
         self.hand = new_hand
 
     def decrease_health(self):
-        if self.health > 0:
-            self.health -= 1
-        else:
+        if self.health <= 0:
             raise InsufficientHealth()
+        self.health -= 1
