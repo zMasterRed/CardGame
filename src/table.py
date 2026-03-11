@@ -8,6 +8,12 @@ class TableView(arcade.View):
         self.enemy_heart = []
         self.player_heart = []
 
+        self.path_joker = ":resources:images/cards/cardJoker.png"
+        self.path_card_back = ":resources:images/cards/cardBack_blue2.png"
+
+        self.card_X = 56
+        self.card_Y = 76
+        
         self. setup()
 
     def setup(self):
@@ -20,6 +26,9 @@ class TableView(arcade.View):
 
             p_heart = arcade.Text("♥", pos_heart + (i * 25), 305, (166, 23, 13), 20)
             self.player_heart.append(p_heart)
+
+        card = ["A","2","3","4","5","6","7","8","9"]
+
 
     def on_show_view(self):
         arcade.set_background_color((5, 105, 25))
