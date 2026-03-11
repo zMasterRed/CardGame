@@ -1,5 +1,5 @@
 import arcade
-import settings
+from src import settings
 
 class TableView(arcade.View):
     def __init__(self):

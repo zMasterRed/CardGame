@@ -1,6 +1,7 @@
 import arcade
 
 from src import settings
+from src.table import TableView
 
 
 class MenuView(arcade.View):
@@ -82,7 +83,9 @@ class MenuView(arcade.View):
 
             if(bottomPlay < y < topPlay):
                 # open Table
-                print("Table")
+                game = TableView()
+                self.window.show_view(game)
+
             if(bottomRule < y < topRule):
                 # open Rule
                 print("Rule")
