@@ -1,8 +1,10 @@
 import random
 from typing import List, Optional
+
 from src.card import Card
-from src.player import Player
 from src.exceptions import PlayerNotFound
+from src.player import Player
+
 
 class GameEngine:
     def __init__(self) -> None:
@@ -12,30 +14,27 @@ class GameEngine:
         self.setup_game()
 
     def setup_game(self) -> None:
-       
+
         self.deck = [Card(value=v) for v in range(1, 9)]
         self.deck.append(Card(value=0, is_joker=True))
-        
-        
+
         random.shuffle(self.deck)
 
-       
         mid: int = len(self.deck) // 2
         self.player = Player(hand=self.deck[:mid])
         self.enemy = Player(hand=self.deck[mid:])
 
-       
         self.player.check_pairs()
         self.enemy.check_pairs()
 
     def get_player_hand(self) -> List[Card]:
-        
+
         if self.player:
             return self.player.hand
         raise PlayerNotFound()
 
     def get_enemy_hand(self) -> List[Card]:
-        
+
         if self.enemy:
             return self.enemy.hand
         raise PlayerNotFound()
