@@ -34,11 +34,26 @@ class TableView(arcade.View):
         arcade.set_background_color((5, 105, 25))
     
     def on_draw(self):
+
         self.clear();
 
+
         arcade.draw_line(0, settings.fY/2, settings.fX, settings.fY/2,arcade.color.WHITE, 1)
+
 
         for i in self.player_heart:
             i.draw()
         for i in self.enemy_heart:
             i.draw()
+
+
+        arcade.draw_rect_outline(
+            arcade.XYWH(85, 460, 75,105),
+            arcade.color.WHITE,
+            border_width = 2
+        )
+        arcade.draw_rect_outline(
+            arcade.XYWH(85, 240, 75,105),
+            arcade.color.WHITE,
+            border_width = 2
+        )
