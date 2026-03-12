@@ -148,17 +148,17 @@ class TableView(arcade.View):
             self.msg.draw()
 
             arcade.draw_rect_filled(
-                arcade.XYWH(settings.fX / 2, 100, settings.bX, settings.bY),
+                arcade.XYWH(settings.fX / 2, 110, settings.bX, settings.bY),
                 arcade.color.DARK_RED,
             )
             arcade.draw_text(
                 "EXIT",
                 settings.fX / 2,
-                100,
+                110,
                 arcade.color.WHITE,
-                20,
-                anchor_x="center",
+                22,
                 anchor_y="center",
+                anchor_x="center",
             )
 
     def lose_heart(self, is_player: bool):
