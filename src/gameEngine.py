@@ -41,7 +41,7 @@ class GameEngine:
             return self.enemy.hand
         raise PlayerNotFound()
 
-    def lose_heart(self, is_player: bool) -> bool:
+    def apply_damage(self, is_player: bool) -> bool:
         # True = Player
         # False = Enemy
 
