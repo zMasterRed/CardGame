@@ -1,8 +1,17 @@
-class Card:
+import arcade
+
+
+class Card(arcade.Sprite):
     def __init__(self, value: int, is_joker: bool = False):
 
         self.value = value
         self.is_joker = is_joker
+        self.face_up = True
+
+        self.path_front = self.get_path()
+        self.path_back = ":resources:images/cards/cardBack_blue2.png"
+
+        super().__init__(self.path_front, scale=0.4)
 
     def __eq__(self, other):
 
@@ -11,8 +20,15 @@ class Card:
 
         return self.value == other.value
 
-    def debug(self):
-
+    def get_path(self):
         if self.is_joker:
-            return "[ JOKER ]"
-        return f"[{self.value}]"
+            return ":resources:images/cards/cardJoker.png"
+        # C = is the Card Value
+        C = "A" if self.value == 1 else str(self.value)
+        return f":resources:images/cards/cardSpades{C}.png"
+
+    def flip(self, face_up: bool):
+        self.face_up = face_up
+        self.texture = arcade.load_texture(
+            self.path_front if face_up else self.path_back
+        )

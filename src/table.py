@@ -13,9 +13,6 @@ class TableView(arcade.View):
         self.txt_enemy_c = None
         self.txt_player_c = None
 
-        self.path_joker = ":resources:images/cards/cardJoker.png"
-        self.path_card_back = ":resources:images/cards/cardBack_blue2.png"
-
         self.card_X = 56
         self.card_Y = 76
 
