@@ -145,7 +145,7 @@ class TableView(arcade.View):
                     width=settings.fX,
                 )
 
-            msg.draw()
+            self.msg.draw()
 
             arcade.draw_rect_filled(
                 arcade.XYWH(settings.fX / 2, 100, settings.bX, settings.bY),
