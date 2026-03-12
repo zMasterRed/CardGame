@@ -14,7 +14,6 @@ class Card(arcade.Sprite):
         super().__init__(self.path_front, scale=0.4)
 
     def __eq__(self, other):
-
         if not isinstance(other, Card):
             return False
 
@@ -32,3 +31,6 @@ class Card(arcade.Sprite):
         self.texture = arcade.load_texture(
             self.path_front if face_up else self.path_back
         )
+
+    def __hash__(self):
+        return hash(id(self))
