@@ -159,4 +159,4 @@ class TableView(arcade.View):
                 < settings.fX / 2 + settings.bX / 2
                 and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
             ):
-                self.window.show_view(self.menu_view)
+                self.window.show_view(self.MenuView)
