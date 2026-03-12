@@ -70,28 +70,39 @@ class TableView(arcade.View):
     def on_draw(self):
         self.clear()
 
-        arcade.draw_line(
-            0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
-        )
+        if self.game_status == 0:
+            arcade.draw_line(
+                0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
+            )
 
-        for i in self.player_heart:
-            i.draw()
-        for i in self.enemy_heart:
-            i.draw()
+            for i in self.player_heart:
+                i.draw()
+            for i in self.enemy_heart:
+                i.draw()
 
-        self.txt_enemy_c.draw()
-        self.txt_player_c.draw()
+            self.txt_enemy_c.draw()
+            self.txt_player_c.draw()
 
-        self.player_sprites.draw()
-        self.enemy_sprites.draw()
+            self.player_sprites.draw()
+            self.enemy_sprites.draw()
 
-        arcade.draw_rect_outline(
-            arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
-        )
-        arcade.draw_rect_outline(
-            arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
-        )
-
+            arcade.draw_rect_outline(
+                arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
+            )
+            arcade.draw_rect_outline(
+                arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
+            )
+        else:
+            if self.game_status == 1:
+                msg = arcade.Text("YOU WIN THE GAME !!", settings.fX/2, settings.fY/2, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center")
+            elif self.game_status == 2:
+                msg = arcade.Text("Oh noo\nGame Over\nTry again !!", settings.fX/2, settings.fY/2, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
+            elif self.game_status == 3:
+                msg = arcade.Text("YOU WIN !!\nOpponent has no lives left", settings.fX/2, settings.fY/2, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
+            elif self.game_status == 4:
+                msg = arcade.Text("Game Over\nNo lives remaining\ntry again !!", settings.fX/2, settings.fY/2, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
+            
+            msg.draw()
     def lose_heart(self, is_player: bool):
         game_over = self.engine.apply_damage(is_player)
 
