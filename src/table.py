@@ -102,4 +102,3 @@ class TableView(arcade.View):
 
         if game_over:
             print("End GAME")
-
