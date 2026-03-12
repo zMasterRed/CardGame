@@ -41,18 +41,22 @@ class TableView(arcade.View):
         self.txt_player_c = arcade.Text(
             "Player couples: ", 30, 315, arcade.color.WHITE, 14, bold=True
         )
+        self.update_cards_position()
 
     def update_cards_position(self):
         self.player_sprites.clear()
         self.enemy_sprites.clear()
 
-        for i, card in enumerate(self.engine.get_player_hand() ):
+        player_hand = self.engine.get_player_hand()
+        enemy_hand = self.engine.get_enemy_hand()
+
+        for i, card in enumerate(player_hand):
             card.center_x = 100 + (i*60)
             card.center_y = 150
             card.flip(face_up = True)
             self.player_sprites.append(card)
 
-        for i, card in enumerate(self.engine.get_enemy_hand() ):
+        for i, card in enumerate(enemy_hand):
             card.center_x = 100 + (i*60)
             card.center_y = 550
             card.flip(face_up = False)
