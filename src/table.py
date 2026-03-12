@@ -51,18 +51,16 @@ class TableView(arcade.View):
         enemy_hand = self.engine.get_enemy_hand()
 
         for i, card in enumerate(player_hand):
-            card.center_x = 100 + (i*60)
+            card.center_x = 200 + (i * 60)
             card.center_y = 150
-            card.flip(face_up = True)
+            card.flip(face_up=True)
             self.player_sprites.append(card)
 
         for i, card in enumerate(enemy_hand):
-            card.center_x = 100 + (i*60)
+            card.center_x = 200 + (i * 60)
             card.center_y = 550
-            card.flip(face_up = False)
+            card.flip(face_up=False)
             self.enemy_sprites.append(card)
-        
-
 
     def on_show_view(self):
         arcade.set_background_color((5, 105, 25))
