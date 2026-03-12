@@ -89,7 +89,7 @@ class MenuView(arcade.View):
 
             if bottomRule < y < topRule:
                 # open Rule
-                game = RuleView()
+                game = RuleView(self)
                 self.window.show_view(game)
 
             if bottomHistory < y < topHistory:

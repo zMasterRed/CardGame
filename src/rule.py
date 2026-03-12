@@ -3,6 +3,10 @@ from src import settings
 
 
 class RuleView(arcade.View):
+    def __init__(self, menu_view):
+        super().__init__()
+        self.menu_view = menu_view 
+        
     def on_show_view(self):
         arcade.set_background_color((6, 56, 138))
 
@@ -58,6 +62,4 @@ class RuleView(arcade.View):
             settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
             and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
         ):
-            from src.gui import MenuView
-
-            self.window.show_view(MenuView())
+            self.window.show_view(self.menu_view)
