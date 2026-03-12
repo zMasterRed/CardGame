@@ -18,10 +18,22 @@ class TableView(arcade.View):
 
         self.txt_enemy_c = None
         self.txt_player_c = None
-        self.msg = None
 
         self.card_X = 56
         self.card_Y = 76
+
+        self.msg = arcade.Text(
+            "",
+            settings.fX / 2,
+            settings.fY / 2 + 200,
+            arcade.color.YELLOW,
+            40,
+            align="center",
+            anchor_x="center",
+            anchor_y="center",
+            multiline=True,
+            width=settings.fX
+        )
 
         self.game_status = 0  # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
 
@@ -95,55 +107,13 @@ class TableView(arcade.View):
             )
         else:
             if self.game_status == 1:
-                self.msg = arcade.Text(
-                    "YOU WIN THE GAME !!",
-                    settings.fX / 2,
-                    settings.fY / 2 + 200,
-                    arcade.color.YELLOW,
-                    40,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                )
+                self.msg = "YOU WIN THE GAME !!"
             elif self.game_status == 2:
-                self.msg = arcade.Text(
-                    "Oh noo\nGame Over\nTry again !!",
-                    settings.fX / 2,
-                    settings.fY / 2 + 200,
-                    arcade.color.YELLOW,
-                    40,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                    multiline=True,
-                    width=settings.fX,
-                )
+                self.msg = "Oh noo\nGame Over\nTry again !!"
             elif self.game_status == 3:
-                self.msg = arcade.Text(
-                    "YOU WIN !!\nOpponent has no lives left",
-                    settings.fX / 2,
-                    settings.fY / 2 + 200,
-                    arcade.color.YELLOW,
-                    40,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                    multiline=True,
-                    width=settings.fX,
-                )
+                self.msg = "YOU WIN !!\nOpponent has no lives left"
             elif self.game_status == 4:
-                self.msg = arcade.Text(
-                    "Game Over\nNo lives remaining\ntry again !!",
-                    settings.fX / 2,
-                    settings.fY / 2 + 200,
-                    arcade.color.YELLOW,
-                    40,
-                    align="center",
-                    anchor_x="center",
-                    anchor_y="center",
-                    multiline=True,
-                    width=settings.fX,
-                )
+                self.msg = "Game Over\nNo lives remaining\ntry again !!"
 
             self.msg.draw()
 
@@ -189,6 +159,4 @@ class TableView(arcade.View):
                 < settings.fX / 2 + settings.bX / 2
                 and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
             ):
-                from src.gui import MenuView
-
-                self.window.show_view(MenuView())
+                self.window.show_view(self.menu_view)
