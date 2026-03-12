@@ -1,8 +1,8 @@
 import arcade
 
 from src import settings
-from src.table import TableView
 from src.rule import RuleView
+from src.table import TableView
 
 
 class MenuView(arcade.View):
