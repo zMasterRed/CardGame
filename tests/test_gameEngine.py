@@ -11,7 +11,6 @@ class TestGameEngine:
     def test_setup_game_deck_composition(self):
         with patch("src.player.Player.check_pairs"):
             engine = GameEngine()
-            # 9 coppie (18) + 1 Joker = 19
             total_cards = len(engine.player.hand) + len(engine.enemy.hand)
             assert total_cards == 19
 
