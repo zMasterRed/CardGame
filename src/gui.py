@@ -41,7 +41,7 @@ class MenuView(arcade.View):
             arcade.color.LIGHT_GRAY,
         )
         arcade.draw_text(
-            "Rule",
+            "Rules",
             settings.fX / 2,
             320,
             arcade.color.BLACK,
@@ -91,7 +91,7 @@ class MenuView(arcade.View):
                 # open Rule
                 game = RuleView()
                 self.window.show_view(game)
-                
+
             if bottomHistory < y < topHistory:
                 # open History
                 print("History")
