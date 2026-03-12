@@ -5,8 +5,8 @@ from src import settings
 class RuleView(arcade.View):
     def __init__(self, menu_view):
         super().__init__()
-        self.menu_view = menu_view 
-        
+        self.menu_view = menu_view
+
     def on_show_view(self):
         arcade.set_background_color((6, 56, 138))
 
