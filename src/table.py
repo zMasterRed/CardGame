@@ -22,6 +22,8 @@ class TableView(arcade.View):
         self.card_X = 56
         self.card_Y = 76
 
+        self.game_status = 0 # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
+
         self.setup()
 
     def setup(self):
@@ -101,4 +103,7 @@ class TableView(arcade.View):
             heart_txt[ptr].color = arcade.color.BLACK
 
         if game_over:
-            print("End GAME")
+            if is_player:
+                self.game_status = 4
+            else:
+                self.game_status = 3
