@@ -1,6 +1,7 @@
 import arcade
 from src import settings
 
+
 class RuleView(arcade.View):
     def on_show_view(self):
         arcade.set_background_color((6, 56, 138))
@@ -10,11 +11,12 @@ class RuleView(arcade.View):
 
         arcade.draw_text(
             "RULES",
-            settings.fX / 2, 600,
+            settings.fX / 2,
+            600,
             arcade.color.WHITE,
             40,
             anchor_x="center",
-            bold=True
+            bold=True,
         )
 
         txt = "19 cards: 9 pairs + 1 Joker.\nThe first to discard all cards wins.\nWARNING! If you draw the Joker, you lose 1 heart!\nYou lose if you hold the Joker at the end or run out of hearts."
@@ -32,9 +34,9 @@ class RuleView(arcade.View):
         )
 
         arcade.draw_rect_outline(
-            arcade.XYWH(settings.fX/2, 350, 680, 350),
-            arcade.color.WHITE, 
-            border_width=2
+            arcade.XYWH(settings.fX / 2, 350, 680, 350),
+            arcade.color.WHITE,
+            border_width=2,
         )
 
         arcade.draw_rect_filled(
@@ -56,5 +58,6 @@ class RuleView(arcade.View):
             settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
             and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
         ):
-            from src.gui import MenuView  
+            from src.gui import MenuView
+
             self.window.show_view(MenuView())
