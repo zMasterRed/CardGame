@@ -22,7 +22,7 @@ class TableView(arcade.View):
         self.card_X = 56
         self.card_Y = 76
 
-        self.game_status = 0 # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
+        self.game_status = 0  # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
 
         self.setup()
 
@@ -94,19 +94,61 @@ class TableView(arcade.View):
             )
         else:
             if self.game_status == 1:
-                msg = arcade.Text("YOU WIN THE GAME !!", settings.fX/2, settings.fY/2+200, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center")
+                msg = arcade.Text(
+                    "YOU WIN THE GAME !!",
+                    settings.fX / 2,
+                    settings.fY / 2 + 200,
+                    arcade.color.YELLOW,
+                    40,
+                    align="center",
+                    anchor_x="center",
+                    anchor_y="center",
+                )
             elif self.game_status == 2:
-                msg = arcade.Text("Oh noo\nGame Over\nTry again !!", settings.fX/2, settings.fY/2+200, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
+                msg = arcade.Text(
+                    "Oh noo\nGame Over\nTry again !!",
+                    settings.fX / 2,
+                    settings.fY / 2 + 200,
+                    arcade.color.YELLOW,
+                    40,
+                    align="center",
+                    anchor_x="center",
+                    anchor_y="center",
+                    multiline=True,
+                    width=settings.fX,
+                )
             elif self.game_status == 3:
-                msg = arcade.Text("YOU WIN !!\nOpponent has no lives left", settings.fX/2, settings.fY/2+200, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
+                msg = arcade.Text(
+                    "YOU WIN !!\nOpponent has no lives left",
+                    settings.fX / 2,
+                    settings.fY / 2 + 200,
+                    arcade.color.YELLOW,
+                    40,
+                    align="center",
+                    anchor_x="center",
+                    anchor_y="center",
+                    multiline=True,
+                    width=settings.fX,
+                )
             elif self.game_status == 4:
-                msg = arcade.Text("Game Over\nNo lives remaining\ntry again !!", settings.fX/2, settings.fY/2+200, arcade.color.YELLOW, 40, align="center", anchor_x="center", anchor_y="center", multiline=True, width=settings.fX)
-            
+                msg = arcade.Text(
+                    "Game Over\nNo lives remaining\ntry again !!",
+                    settings.fX / 2,
+                    settings.fY / 2 + 200,
+                    arcade.color.YELLOW,
+                    40,
+                    align="center",
+                    anchor_x="center",
+                    anchor_y="center",
+                    multiline=True,
+                    width=settings.fX,
+                )
+
             msg.draw()
 
             arcade.draw_rect_filled(
                 arcade.XYWH(settings.fX / 2, 100, settings.bX, settings.bY),
-            arcade.color.DARK_RED,
+                arcade.color.DARK_RED,
             )
             arcade.draw_text(
                 "EXIT",
@@ -117,7 +159,6 @@ class TableView(arcade.View):
                 anchor_x="center",
                 anchor_y="center",
             )
-
 
     def lose_heart(self, is_player: bool):
         game_over = self.engine.apply_damage(is_player)
@@ -134,18 +175,19 @@ class TableView(arcade.View):
                 self.game_status = 4
             else:
                 self.game_status = 3
-        
+
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.game_status == 0:
-            
+
             print("Game function")
 
         else:
             if (
-                settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
+                settings.fX / 2 - settings.bX / 2
+                < x
+                < settings.fX / 2 + settings.bX / 2
                 and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
             ):
-                from src.gui import MenuView 
-                self.window.show_view(MenuView())
-            
+                from src.gui import MenuView
 
+                self.window.show_view(MenuView())
