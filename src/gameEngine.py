@@ -15,7 +15,7 @@ class GameEngine:
 
     def setup_game(self) -> None:
 
-        self.deck = [Card(value=v) for v in range(1, 9)]
+        self.deck = [Card(value=v) for v in range(1, 9)] * 2
         self.deck.append(Card(value=0, is_joker=True))
 
         random.shuffle(self.deck)
