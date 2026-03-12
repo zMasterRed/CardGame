@@ -1,11 +1,17 @@
 import arcade
 
 from src import settings
+from src.gameEngine import GameEngine
 
 
 class TableView(arcade.View):
     def __init__(self):
         super().__init__()
+
+        self.engine = GameEngine()
+
+        self.player_sprites = arcade.SpriteList()
+        self.enemy_sprites = arcade.SpriteList()
 
         self.enemy_heart = []
         self.player_heart = []
@@ -36,6 +42,24 @@ class TableView(arcade.View):
             "Player couples: ", 30, 315, arcade.color.WHITE, 14, bold=True
         )
 
+    def update_cards_position(self):
+        self.player_sprites.clear()
+        self.enemy_sprites.clear()
+
+        for i, card in enumerate(self.engine.get_player_hand() ):
+            card.center_x = 100 + (i*60)
+            card.center_y = 150
+            card.flip(face_up = True)
+            self.player_sprites.append(card)
+
+        for i, card in enumerate(self.engine.get_enemy_hand() ):
+            card.center_x = 100 + (i*60)
+            card.center_y = 550
+            card.flip(face_up = False)
+            self.enemy_sprites.append(card)
+        
+
+
     def on_show_view(self):
         arcade.set_background_color((5, 105, 25))
 
@@ -53,6 +77,9 @@ class TableView(arcade.View):
 
         self.txt_enemy_c.draw()
         self.txt_player_c.draw()
+
+        self.player_sprites.draw()
+        self.enemy_sprites.draw()
 
         arcade.draw_rect_outline(
             arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
