@@ -5,8 +5,10 @@ from src.gameEngine import GameEngine
 
 
 class TableView(arcade.View):
-    def __init__(self):
+    def __init__(self, menu_view):
         super().__init__()
+
+        self.menu_view = menu_view
 
         self.engine = GameEngine()
 
@@ -107,13 +109,13 @@ class TableView(arcade.View):
             )
         else:
             if self.game_status == 1:
-                self.msg = "YOU WIN THE GAME !!"
+                self.msg.text = "YOU WIN THE GAME !!"
             elif self.game_status == 2:
-                self.msg = "Oh noo\nGame Over\nTry again !!"
+                self.msg.text = "Oh noo\nGame Over\nTry again !!"
             elif self.game_status == 3:
-                self.msg = "YOU WIN !!\nOpponent has no lives left"
+                self.msg.text = "YOU WIN !!\nOpponent has no lives left"
             elif self.game_status == 4:
-                self.msg = "Game Over\nNo lives remaining\ntry again !!"
+                self.msg.text = "Game Over\nNo lives remaining\ntry again !!"
 
             self.msg.draw()
 
@@ -159,4 +161,4 @@ class TableView(arcade.View):
                 < settings.fX / 2 + settings.bX / 2
                 and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
             ):
-                self.window.show_view(self.MenuView)
+                self.window.show_view(self.menu_view)
