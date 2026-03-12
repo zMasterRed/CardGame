@@ -50,3 +50,11 @@ class RuleView(arcade.View):
             anchor_x="center",
             anchor_y="center",
         )
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        if (
+            settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
+            and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
+        ):
+            from src.gui import MenuView  
+            self.window.show_view(MenuView())
