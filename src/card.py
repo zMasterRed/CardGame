@@ -32,5 +32,10 @@ class Card(arcade.Sprite):
             self.path_front if face_up else self.path_back
         )
 
+    def debug(self):
+        if self.is_joker:
+            return "[ JOKER ]"
+        return f"[{self.value}]"
+
     def __hash__(self):
         return hash(id(self))
