@@ -20,3 +20,6 @@ class Player:
         if self.health <= 0:
             raise InsufficientHealth()
         self.health -= 1
+
+    def is_dead(self):
+        return self.health <= 0
