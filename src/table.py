@@ -34,7 +34,7 @@ class TableView(arcade.View):
             anchor_x="center",
             anchor_y="center",
             multiline=True,
-            width=settings.fX
+            width=settings.fX,
         )
 
         self.game_status = 0  # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
