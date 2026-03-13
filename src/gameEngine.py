@@ -57,3 +57,20 @@ class GameEngine:
                     self.game_status = "HEART_WIN"
                 return True
         return False
+    
+    def player_draws_card(self, card: Card) -> None:
+        """
+        Move the card the player draw from enemy hand to player hand
+        """
+        if not self.player:
+            raise PlayerNotFound()
+
+        if card in self.enemy.hand:
+            self.enemy.hand.remove(card)
+            self.player.hand.append(card)
+
+            if card.is_joker:
+                self.apply_damage(is_player=True)
+
+            self.player.check_pairs()
+
