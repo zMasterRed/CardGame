@@ -57,7 +57,7 @@ class GameEngine:
                     self.game_status = "HEART_WIN"
                 return True
         return False
-    
+
     def player_draws_card(self, card: Card) -> None:
         """
         Move the card the player draw from enemy hand to player hand
@@ -73,28 +73,28 @@ class GameEngine:
             self.update_game_status()
 
     def update_game_status(self) -> None:
-            """Check if someone won after this move"""
-            if len(self.player.hand) == 0:
-                self.game_status = "WIN"
-            elif len(self.enemy.hand) == 0:
-                self.game_status = "LOSE"
+        """Check if someone won after this move"""
+        if len(self.player.hand) == 0:
+            self.game_status = "WIN"
+        elif len(self.enemy.hand) == 0:
+            self.game_status = "LOSE"
 
     def enemy_draws_card(self) -> Card:
-            """
-            Enemy draws a random card from player hand,
-            return it to display in the updated deck
-            """
-            if not self.player or not self.enemy:
-                raise PlayerNotFound()
+        """
+        Enemy draws a random card from player hand,
+        return it to display in the updated deck
+        """
+        if not self.player or not self.enemy:
+            raise PlayerNotFound()
 
-            if len(self.player.hand) == 0:
-                return None
+        if len(self.player.hand) == 0:
+            return None
 
-            random_card = random.choice(self.player.hand)
-            self.player.hand.remove(random_card)
-            self.enemy.hand.append(random_card)
+        random_card = random.choice(self.player.hand)
+        self.player.hand.remove(random_card)
+        self.enemy.hand.append(random_card)
 
-            self.enemy.check_pairs()
-            self.update_game_status()
+        self.enemy.check_pairs()
+        self.update_game_status()
 
-            return random_card
+        return random_card
