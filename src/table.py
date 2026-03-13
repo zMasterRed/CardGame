@@ -5,8 +5,10 @@ from src.gameEngine import GameEngine
 
 
 class TableView(arcade.View):
-    def __init__(self):
+    def __init__(self, menu_view):
         super().__init__()
+
+        self.menu_view = menu_view
 
         self.engine = GameEngine()
 
@@ -22,6 +24,18 @@ class TableView(arcade.View):
         self.card_X = 56
         self.card_Y = 76
 
+        self.msg = arcade.Text(
+            "",
+            settings.fX / 2,
+            settings.fY / 2 + 200,
+            arcade.color.YELLOW,
+            40,
+            align="center",
+            anchor_x="center",
+            anchor_y="center",
+            multiline=True,
+            width=settings.fX,
+        )
         self.setup()
 
     def setup(self):
@@ -68,30 +82,56 @@ class TableView(arcade.View):
     def on_draw(self):
         self.clear()
 
-        arcade.draw_line(
-            0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
-        )
+        if self.engine.game_status == "PLAYING":
+            arcade.draw_line(
+                0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
+            )
 
-        for i in self.player_heart:
-            i.draw()
-        for i in self.enemy_heart:
-            i.draw()
+            for i in self.player_heart:
+                i.draw()
+            for i in self.enemy_heart:
+                i.draw()
 
-        self.txt_enemy_c.draw()
-        self.txt_player_c.draw()
+            self.txt_enemy_c.draw()
+            self.txt_player_c.draw()
 
-        self.player_sprites.draw()
-        self.enemy_sprites.draw()
+            self.player_sprites.draw()
+            self.enemy_sprites.draw()
 
-        arcade.draw_rect_outline(
-            arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
-        )
-        arcade.draw_rect_outline(
-            arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
-        )
+            arcade.draw_rect_outline(
+                arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
+            )
+            arcade.draw_rect_outline(
+                arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
+            )
+        else:
+            if self.engine.game_status == "WIN":
+                self.msg.text = "YOU WIN THE GAME !!"
+            elif self.engine.game_status == "LOSE":
+                self.msg.text = "Oh noo\nGame Over\nTry again !!"
+            elif self.engine.game_status == "HEART_WIN":
+                self.msg.text = "YOU WIN !!\nOpponent has no lives left"
+            elif self.engine.game_status == "HEART_LOSE":
+                self.msg.text = "Game Over\nNo lives remaining\ntry again !!"
+
+            self.msg.draw()
+
+            arcade.draw_rect_filled(
+                arcade.XYWH(settings.fX / 2, 110, settings.bX, settings.bY),
+                arcade.color.DARK_RED,
+            )
+            arcade.draw_text(
+                "EXIT",
+                settings.fX / 2,
+                110,
+                arcade.color.WHITE,
+                22,
+                anchor_y="center",
+                anchor_x="center",
+            )
 
     def lose_heart(self, is_player: bool):
-        game_over = self.engine.apply_damage(is_player)
+        self.engine.apply_damage(is_player)
 
         target = self.engine.player if is_player else self.engine.enemy
         heart_txt = self.player_heart if is_player else self.enemy_heart
@@ -100,5 +140,16 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-        if game_over:
-            print("End GAME")
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+        if self.engine.game_status == "PLAYING":
+
+            print("Game function")
+
+        else:
+            if (
+                settings.fX / 2 - settings.bX / 2
+                < x
+                < settings.fX / 2 + settings.bX / 2
+                and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
+            ):
+                self.window.show_view(self.menu_view)
