@@ -70,6 +70,7 @@ class GameEngine:
             self.player.hand.append(card)
 
             self.player.check_pairs()
+            random.shuffle(self.enemy.hand)
             self.update_game_status()
 
     def update_game_status(self) -> None:
