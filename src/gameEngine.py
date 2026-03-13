@@ -78,6 +78,9 @@ class GameEngine:
 
     def update_game_status(self) -> None:
         """Check if someone won after this move"""
+        if self.player is None or self.enemy is None:
+            return
+
         if len(self.player.hand) == 0:
             self.game_status = "WIN"
         elif len(self.enemy.hand) == 0:
