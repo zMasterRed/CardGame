@@ -11,6 +11,7 @@ class GameEngine:
         self.deck: List[Card] = []
         self.player: Optional[Player] = None
         self.enemy: Optional[Player] = None
+        self.game_status = "PLAYING"
         self.setup_game()
 
     def setup_game(self) -> None:
@@ -49,5 +50,10 @@ class GameEngine:
 
         if target:
             target.decrease_health()
-            return target.is_dead()
+            if target.is_dead():
+                if is_player:
+                    self.game_status = "HEART_LOSE"
+                else:
+                    self.game_status = "HEART_WIN"
+                return True
         return False

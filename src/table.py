@@ -36,9 +36,6 @@ class TableView(arcade.View):
             multiline=True,
             width=settings.fX,
         )
-
-        self.game_status = 0  # 1 = WIN ! 2 = LOSE ! 3 = Heart WIN ! 4 = Heart LOSE
-
         self.setup()
 
     def setup(self):
@@ -85,7 +82,7 @@ class TableView(arcade.View):
     def on_draw(self):
         self.clear()
 
-        if self.game_status == 0:
+        if self.engine.game_status == "PLAYING":
             arcade.draw_line(
                 0, settings.fY / 2, settings.fX, settings.fY / 2, arcade.color.WHITE, 1
             )
@@ -108,13 +105,13 @@ class TableView(arcade.View):
                 arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
             )
         else:
-            if self.game_status == 1:
+            if self.engine.game_status == "WIN":
                 self.msg.text = "YOU WIN THE GAME !!"
-            elif self.game_status == 2:
+            elif self.engine.game_status == "LOSE":
                 self.msg.text = "Oh noo\nGame Over\nTry again !!"
-            elif self.game_status == 3:
+            elif self.engine.game_status == "HEART_WIN":
                 self.msg.text = "YOU WIN !!\nOpponent has no lives left"
-            elif self.game_status == 4:
+            elif self.engine.game_status == "HEART_LOSE":
                 self.msg.text = "Game Over\nNo lives remaining\ntry again !!"
 
             self.msg.draw()
@@ -143,16 +140,11 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-        if game_over:
-            if is_player:
-                self.game_status = 4
-            else:
-                self.game_status = 3
-
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        if self.game_status == 0:
+        if self.engine.game_status == "PLAYING":
 
             print("Game function")
+            self.lose_heart(False)
 
         else:
             if (
