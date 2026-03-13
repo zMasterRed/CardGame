@@ -105,4 +105,3 @@ class GameEngine:
         self.update_game_status()
 
         return random_card
-
