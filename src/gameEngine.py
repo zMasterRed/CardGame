@@ -73,4 +73,11 @@ class GameEngine:
                 self.apply_damage(is_player=True)
 
             self.player.check_pairs()
+            self.update_game_status()
 
+    def update_game_status(self) -> None:
+            """Check if someone won after this move"""
+            if len(self.player.hand) == 0:
+                self.game_status = "WIN"
+            elif len(self.enemy.hand) == 0:
+                self.game_status = "LOSE"
