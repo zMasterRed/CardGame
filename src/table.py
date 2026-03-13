@@ -89,3 +89,16 @@ class TableView(arcade.View):
         arcade.draw_rect_outline(
             arcade.XYWH(85, 240, 75, 105), arcade.color.WHITE, border_width=2
         )
+
+    def lose_heart(self, is_player: bool):
+        game_over = self.engine.apply_damage(is_player)
+
+        target = self.engine.player if is_player else self.engine.enemy
+        heart_txt = self.player_heart if is_player else self.enemy_heart
+
+        ptr = target.health
+        if 0 <= ptr < len(heart_txt):
+            heart_txt[ptr].color = arcade.color.BLACK
+
+        if game_over:
+            print("End GAME")

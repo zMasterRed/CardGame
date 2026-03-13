@@ -40,3 +40,14 @@ class GameEngine:
         if self.enemy:
             return self.enemy.hand
         raise PlayerNotFound()
+
+    def apply_damage(self, is_player: bool) -> bool:
+        # True = Player
+        # False = Enemy
+
+        target = self.player if is_player else self.enemy
+
+        if target:
+            target.decrease_health()
+            return target.is_dead()
+        return False
