@@ -44,19 +44,7 @@ class RuleView(arcade.View):
             border_width=2,
         )
 
-        arcade.draw_rect_filled(
-            arcade.XYWH(settings.fX / 2, 100, settings.bX, settings.bY),
-            arcade.color.DARK_RED,
-        )
-        arcade.draw_text(
-            "EXIT",
-            settings.fX / 2,
-            100,
-            arcade.color.WHITE,
-            20,
-            anchor_x="center",
-            anchor_y="center",
-        )
+        settings.draw_exit_button()
 
     def on_mouse_press(self, x, y, button, modifiers):
         if (

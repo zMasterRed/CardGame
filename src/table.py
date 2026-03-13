@@ -116,19 +116,7 @@ class TableView(arcade.View):
 
             self.msg.draw()
 
-            arcade.draw_rect_filled(
-                arcade.XYWH(settings.fX / 2, 110, settings.bX, settings.bY),
-                arcade.color.DARK_RED,
-            )
-            arcade.draw_text(
-                "EXIT",
-                settings.fX / 2,
-                110,
-                arcade.color.WHITE,
-                22,
-                anchor_y="center",
-                anchor_x="center",
-            )
+            settings.draw_exit_button()
 
     def lose_heart(self, is_player: bool):
         self.engine.apply_damage(is_player)
@@ -144,6 +132,7 @@ class TableView(arcade.View):
         if self.engine.game_status == "PLAYING":
 
             print("Game function")
+            self.lose_heart(True)
 
         else:
             if (
