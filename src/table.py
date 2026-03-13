@@ -131,7 +131,7 @@ class TableView(arcade.View):
             )
 
     def lose_heart(self, is_player: bool):
-        game_over = self.engine.apply_damage(is_player)
+        self.engine.apply_damage(is_player)
 
         target = self.engine.player if is_player else self.engine.enemy
         heart_txt = self.player_heart if is_player else self.enemy_heart
@@ -144,7 +144,6 @@ class TableView(arcade.View):
         if self.engine.game_status == "PLAYING":
 
             print("Game function")
-            self.lose_heart(False)
 
         else:
             if (
