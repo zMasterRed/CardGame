@@ -132,7 +132,6 @@ class TableView(arcade.View):
         if self.engine.game_status == "PLAYING":
 
             print("Game function")
-            self.lose_heart(True)
 
         else:
             if (
