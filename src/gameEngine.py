@@ -62,12 +62,15 @@ class GameEngine:
         """
         Move the card the player draw from enemy hand to player hand
         """
-        if not self.player:
+        if self.player is None or self.enemy is None:
             raise PlayerNotFound()
 
         if card in self.enemy.hand:
             self.enemy.hand.remove(card)
             self.player.hand.append(card)
+
+            if card.is_joker:
+                self.apply_damage(is_player=True)
 
             self.player.check_pairs()
             random.shuffle(self.enemy.hand)
@@ -80,12 +83,12 @@ class GameEngine:
         elif len(self.enemy.hand) == 0:
             self.game_status = "LOSE"
 
-    def enemy_draws_card(self) -> Card:
+    def enemy_draws_card(self) -> Optional[Card]:
         """
         Enemy draws a random card from player hand,
         return it to display in the updated deck
         """
-        if not self.player or not self.enemy:
+        if self.player is None or self.enemy is None:
             raise PlayerNotFound()
 
         if len(self.player.hand) == 0:
@@ -95,7 +98,11 @@ class GameEngine:
         self.player.hand.remove(random_card)
         self.enemy.hand.append(random_card)
 
+        if random_card.is_joker:
+            self.apply_damage(is_player=False)
+
         self.enemy.check_pairs()
         self.update_game_status()
 
         return random_card
+
