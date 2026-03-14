@@ -64,8 +64,8 @@ class MenuView(arcade.View):
             font_size=20,
         )
 
-    #in arcade version 3.0+ x, y are float, int otherwise
-    def on_mouse_press(self, x: float, y: float, button : int, modifiers: int) -> None:
+    # in arcade version 3.0+ x, y are float, int otherwise
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
         bY2 = settings.bY / 2
 
         bLeft = settings.fX / 2 - settings.bX / 2

@@ -1,7 +1,7 @@
 from src.gui import runMenu
 
 
-def main():
+def main() -> None:
     runMenu()
 
 

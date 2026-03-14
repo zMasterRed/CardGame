@@ -7,6 +7,7 @@ from src.player import Player
 
 type GameStatus = Literal["PLAYING", "WIN", "LOSE", "HEART_WIN", "HEART_LOSE"]
 
+
 class GameEngine:
     def __init__(self) -> None:
         self.deck = []

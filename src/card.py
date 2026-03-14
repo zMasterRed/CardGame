@@ -13,7 +13,7 @@ class Card(arcade.Sprite):
 
         super().__init__(self.path_front, scale=0.4)
 
-    def __eq__(self, other : object) -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Card):
             return False
 
