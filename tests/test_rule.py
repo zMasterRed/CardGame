@@ -51,3 +51,14 @@ def test_click_outside_button_does_nothing(mock_settings):
 
     view.on_mouse_press(0, 800, 1, 0)
     view.window.show_view.assert_not_called()
+
+
+@patch("src.rule.settings")
+@patch("src.rule.arcade")
+def test_on_draw(mock_arcade, mock_settings):
+    mock_menu = MagicMock()
+    view = RuleView(mock_menu)
+
+    view.on_draw()
+
+    mock_arcade.draw_text.assert_called()
