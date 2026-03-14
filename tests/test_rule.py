@@ -12,7 +12,7 @@ def mock_window():
         yield mock_get_window
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def mock_settings():
     with patch("src.rule.settings") as mock_sett:
         mock_sett.fX = 800
@@ -27,14 +27,14 @@ def test_initialization():
     assert view.menu_view == mock_menu
 
 
-@patch("src.rule.arcade.set_background_color")
-def test_on_show_view(mock_set_bg):
-    view = RuleView(MagicMock())
-    view.on_show_view()
-    mock_set_bg.assert_called_once_with((6, 56, 138))
+def test_on_show_view():
+    with patch("src.rule.arcade.set_background_color") as mock_set_bg:
+        view = RuleView(MagicMock())
+        view.on_show_view()
+        mock_set_bg.assert_called_once_with((6, 56, 138))
 
 
-def test_click_on_button_exits(mock_settings):
+def test_click_on_button_exits():
     mock_menu = MagicMock()
     view = RuleView(mock_menu)
 
@@ -45,7 +45,7 @@ def test_click_on_button_exits(mock_settings):
     view.window.show_view.assert_called_once_with(mock_menu)
 
 
-def test_click_outside_button_does_nothing(mock_settings):
+def test_click_outside_button_does_nothing():
     mock_menu = MagicMock()
     view = RuleView(mock_menu)
 
@@ -53,12 +53,11 @@ def test_click_outside_button_does_nothing(mock_settings):
     view.window.show_view.assert_not_called()
 
 
-@patch("src.rule.settings")
-@patch("src.rule.arcade")
-def test_on_draw(mock_arcade, mock_settings):
-    mock_menu = MagicMock()
-    view = RuleView(mock_menu)
+def test_on_draw():
+    with patch("src.rule.arcade") as mock_arcade, patch("src.rule.settings"):
+        mock_menu = MagicMock()
+        view = RuleView(mock_menu)
 
-    view.on_draw()
+        view.on_draw()
 
-    mock_arcade.draw_text.assert_called()
+        mock_arcade.draw_text.assert_called()
