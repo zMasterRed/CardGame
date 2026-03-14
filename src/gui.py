@@ -98,7 +98,7 @@ class MenuView(arcade.View):
                 print("History")
 
 
-def runMenu() -> None:
+def runMenu():
     window = arcade.Window(settings.fX, settings.fY, "CardGame - Menu")
     menu = MenuView()
     window.show_view(menu)
