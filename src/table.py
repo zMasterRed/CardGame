@@ -5,7 +5,7 @@ from src.gameEngine import GameEngine
 
 
 class TableView(arcade.View):
-    def __init__(self, menu_view):
+    def __init__(self, menu_view) -> None:
         super().__init__()
 
         self.menu_view = menu_view
@@ -38,7 +38,7 @@ class TableView(arcade.View):
         )
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
 
         pos_heart = 870
         for i in range(3):
@@ -57,7 +57,7 @@ class TableView(arcade.View):
         )
         self.update_cards_position()
 
-    def update_cards_position(self):
+    def update_cards_position(self) -> None:
         self.player_sprites.clear()
         self.enemy_sprites.clear()
 
@@ -76,10 +76,10 @@ class TableView(arcade.View):
             card.flip(face_up=False)
             self.enemy_sprites.append(card)
 
-    def on_show_view(self):
+    def on_show_view(self) -> None:
         arcade.set_background_color((5, 105, 25))
 
-    def on_draw(self):
+    def on_draw(self) -> None:
         self.clear()
 
         if self.engine.game_status == "PLAYING":
@@ -118,7 +118,7 @@ class TableView(arcade.View):
 
             settings.draw_exit_button()
 
-    def lose_heart(self, is_player: bool):
+    def lose_heart(self, is_player: bool) -> None:
         self.engine.apply_damage(is_player)
 
         target = self.engine.player if is_player else self.engine.enemy
@@ -128,7 +128,7 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
         if self.engine.game_status == "PLAYING":
 
             print("Game function")
