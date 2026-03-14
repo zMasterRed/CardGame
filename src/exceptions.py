@@ -1,7 +1,6 @@
 class CardGameError(Exception):
     """Base class for game exception"""
 
-    pass
 
 
 class InsufficientHealth(CardGameError):
