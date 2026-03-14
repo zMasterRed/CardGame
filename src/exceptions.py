@@ -2,7 +2,6 @@ class CardGameError(Exception):
     """Base class for game exception"""
 
 
-
 class InsufficientHealth(CardGameError):
     def __init__(self) -> None:
         msg = "Player has not enough health"
