@@ -6,10 +6,10 @@ from src.table import TableView
 
 
 class MenuView(arcade.View):
-    def on_show_view(self):
+    def on_show_view(self) -> None:
         arcade.set_background_color((6, 56, 138))
 
-    def on_draw(self):
+    def on_draw(self) -> None:
         self.clear()
 
         arcade.draw_text(
@@ -64,7 +64,8 @@ class MenuView(arcade.View):
             font_size=20,
         )
 
-    def on_mouse_press(self, x, y, button, modifiers):
+    #in arcade version 3.0+ x, y are float, int otherwise
+    def on_mouse_press(self, x: float, y: float) -> None:
         bY2 = settings.bY / 2
 
         bLeft = settings.fX / 2 - settings.bX / 2
@@ -97,7 +98,7 @@ class MenuView(arcade.View):
                 print("History")
 
 
-def runMenu():
+def runMenu() -> None:
     window = arcade.Window(settings.fX, settings.fY, "CardGame - Menu")
     menu = MenuView()
     window.show_view(menu)
