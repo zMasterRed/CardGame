@@ -10,7 +10,7 @@ type GameStatus = Literal["PLAYING", "WIN", "LOSE", "HEART_WIN", "HEART_LOSE"]
 
 class GameEngine:
     def __init__(self) -> None:
-        self.deck = []
+        self.deck: list[Card] = []
         self.player: Player | None = None
         self.enemy: Player | None = None
         self.game_status: GameStatus = "PLAYING"

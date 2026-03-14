@@ -4,14 +4,14 @@ from src import settings
 
 
 class RuleView(arcade.View):
-    def __init__(self, menu_view) -> None:
+    def __init__(self, menu_view):
         super().__init__()
         self.menu_view = menu_view
 
-    def on_show_view(self) -> None:
+    def on_show_view(self):
         arcade.set_background_color((6, 56, 138))
 
-    def on_draw(self) -> None:
+    def on_draw(self):
         self.clear()
 
         arcade.draw_text(
@@ -46,7 +46,7 @@ class RuleView(arcade.View):
 
         settings.draw_exit_button()
 
-    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         if (
             settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
             and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
