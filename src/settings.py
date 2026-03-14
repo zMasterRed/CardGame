@@ -9,7 +9,7 @@ bX: int = 200
 bY: int = 50
 
 
-def draw_exit_button():
+def draw_exit_button() -> None:
     arcade.draw_rect_filled(
         arcade.XYWH(fX / 2, 100, bX, bY),
         arcade.color.DARK_RED,

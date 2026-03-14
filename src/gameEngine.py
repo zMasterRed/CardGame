@@ -1,17 +1,19 @@
 import random
-from typing import List, Optional
+from typing import Literal
 
 from src.card import Card
 from src.exceptions import PlayerNotFound
 from src.player import Player
 
+type GameStatus = Literal["PLAYING", "WIN", "LOSE", "HEART_WIN", "HEART_LOSE"]
+
 
 class GameEngine:
     def __init__(self) -> None:
-        self.deck: List[Card] = []
-        self.player: Optional[Player] = None
-        self.enemy: Optional[Player] = None
-        self.game_status = "PLAYING"
+        self.deck: list[Card] = []
+        self.player: Player | None = None
+        self.enemy: Player | None = None
+        self.game_status: GameStatus = "PLAYING"
         self.setup_game()
 
     def setup_game(self) -> None:
@@ -30,13 +32,13 @@ class GameEngine:
         self.player.check_pairs()
         self.enemy.check_pairs()
 
-    def get_player_hand(self) -> List[Card]:
+    def get_player_hand(self) -> list[Card]:
 
         if self.player:
             return self.player.hand
         raise PlayerNotFound()
 
-    def get_enemy_hand(self) -> List[Card]:
+    def get_enemy_hand(self) -> list[Card]:
 
         if self.enemy:
             return self.enemy.hand
@@ -86,7 +88,7 @@ class GameEngine:
         elif len(self.enemy.hand) == 0:
             self.game_status = "LOSE"
 
-    def enemy_draws_card(self) -> Optional[Card]:
+    def enemy_draws_card(self) -> Card | None:
         """
         Enemy draws a random card from player hand,
         return it to display in the updated deck

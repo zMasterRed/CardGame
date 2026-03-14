@@ -64,7 +64,8 @@ class MenuView(arcade.View):
             font_size=20,
         )
 
-    def on_mouse_press(self, x, y, button, modifiers):
+    # in arcade version 3.0+ x, y are float, int otherwise
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         bY2 = settings.bY / 2
 
         bLeft = settings.fX / 2 - settings.bX / 2
@@ -84,13 +85,13 @@ class MenuView(arcade.View):
 
             if bottomPlay < y < topPlay:
                 # open Table
-                game = TableView(self)
-                self.window.show_view(game)
+                table = TableView(self)
+                self.window.show_view(table)
 
             if bottomRule < y < topRule:
                 # open Rule
-                game = RuleView(self)
-                self.window.show_view(game)
+                rule = RuleView(self)
+                self.window.show_view(rule)
 
             if bottomHistory < y < topHistory:
                 # open History
