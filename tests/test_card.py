@@ -1,4 +1,5 @@
 from src.card import Card
+import pytest
 
 
 def test_card_init():
@@ -24,6 +25,35 @@ def test_cards_equality():
     assert c1 != c3
     assert c1 != "7"  # testing if type value is not int
 
+def test_card_flip():
+    card = Card(10)
+    assert card.face_up is True
+    
+    card.flip(False)
+    assert card.face_up is False
+    assert card.path_back.endswith("cardBack_blue2.png")
+    
+    card.flip(True)
+    assert card.face_up is True
+    assert card.path_front.endswith("cardSpades10.png")
+
+def test_get_path_joker():
+    card = Card(0, is_joker=True)
+    assert card.get_path() == ":resources:images/cards/cardJoker.png"
+    assert card.path_front == ":resources:images/cards/cardJoker.png"
+
+def test_get_path_ace():
+    """Test if 1 becomes ace"""
+    card = Card(1, is_joker=False)
+    assert card.get_path() == ":resources:images/cards/cardSpadesA.png"
+    assert "cardSpadesA" in card.path_front
+
+@pytest.mark.parametrize("val", [2, 5, 9])
+def test_get_path_various_numbers(val):
+    """Test multiple path"""
+    card = Card(val)
+    assert card.get_path() == f":resources:images/cards/cardSpades{val}.png"
+    assert f'{val}' in card.path_front
 
 def test_debug_output():
     c1 = Card(5)
