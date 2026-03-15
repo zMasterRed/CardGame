@@ -4,6 +4,7 @@ from src import settings
 from src.gameEngine import GameEngine
 from src.card import Card
 
+
 class TableView(arcade.View):
     def __init__(self, menu_view):
         super().__init__()
