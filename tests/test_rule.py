@@ -54,7 +54,7 @@ def test_click_outside_button_does_nothing():
 
 
 def test_on_draw():
-    with patch("src.rule.arcade") as mock_arcade, patch("src.rule.settings"):
+    with patch("src.rule.arcade") as mock_arcade:
         mock_menu = MagicMock()
         view = RuleView(mock_menu)
 
