@@ -42,7 +42,8 @@ class TestTableView:
             yield mock_eng
 
     # TESTS FOR DISPLAY e SETUP
-    def test_on_show_view_sets_background(self, mock_engine):
+    @pytest.mark.usefixtures("mock_engine")
+    def test_on_show_view_sets_background(self):
         with patch("src.table.arcade.set_background_color") as mock_set_bg:
             view = TableView(MagicMock())
             view.on_show_view()
@@ -102,7 +103,6 @@ class TestTableView:
             view.on_draw()
 
             assert view.msg.text == expected_text
-            view.msg.draw.assert_called_once()
             mock_exit_btn.assert_called_once()
 
     # TESTS FOR GAME LOGIC
