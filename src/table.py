@@ -25,6 +25,8 @@ class TableView(arcade.View):
         self.txt_enemy_c = None
         self.txt_player_c = None
 
+        self.pesca = True
+
         self.msg = arcade.Text(
             "",
             settings.fX / 2,
@@ -51,10 +53,20 @@ class TableView(arcade.View):
             self.player_heart.append(p_heart)
 
         self.txt_enemy_c = arcade.Text(
-            "Enemy couples: ", 30, 375, arcade.color.WHITE, 14, bold=True
+            f"Enemy couples: {len(self.enemy_pairs)}",
+            30,
+            375,
+            arcade.color.WHITE,
+            14,
+            bold=True,
         )
         self.txt_player_c = arcade.Text(
-            "Player couples: ", 30, 315, arcade.color.WHITE, 14, bold=True
+            f"Player couples: {len(self.player_pairs)}",
+            30,
+            315,
+            arcade.color.WHITE,
+            14,
+            bold=True,
         )
         self.update_cards_position()
 
@@ -131,26 +143,31 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-    def animated_pairse(self, card: Card, is_player: bool):
+    def animated_pairs(self, card: Card, is_player: bool):
         if is_player:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 - 50
+            self.update_cards_position()
 
             self.player_pairs.append(card)
+            self.txt_player_c.text = f"Player couples: {len(self.player_pairs)}"
 
             arcade.schedule_once(lambda dt: self.final_move(card, 85, 240), 2.5)
         else:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 + 50
+            self.update_cards_position()
             card.flip(face_up=True)
 
             self.enemy_pairs.append(card)
+            self.txt_enemy_c.text = f"Player enemy: {len(self.enemy_pairs)}"
 
             arcade.schedule_once(lambda dt: self.final_move(card, 85, 460), 2.5)
 
     def final_move(self, card: Card, x: int, y: int):
         card.center_x = x
         card.center_y = y
+        self.engine.update_game_status()
 
     def animated_to_draw(self, card: Card, is_player: bool):
         card.center_x = settings.fX / 2 - 150
@@ -164,17 +181,28 @@ class TableView(arcade.View):
             self.engine.player_draws_card(card)
             if card.is_joker:
                 self.lose_heart(is_player=True)
-
             self.update_cards_position()
+
+            coppia = self.engine.player.check_pairs()
+            if coppia is not None:
+                self.animated_pairs(coppia, is_player)
+
             self.engine.switch_turn()
 
-            arcade.schedule_once(self.enemy_draw, 2.0)
+            arcade.schedule_once(self.enemy_draw, 2.5)
         else:
             if card.is_joker:
                 self.lose_heart(is_player=False)
             card.flip(face_up=is_player)
+
+            coppia = self.engine.enemy.check_pairs()
+            if coppia is not None:
+                self.animated_pairs(coppia, is_player)
+
             self.update_cards_position()
+            self.pesca = True
             self.engine.switch_turn()
+        self.engine.update_game_status()
 
     def enemy_draw(self, _time: float):
         if self.engine.game_status == "PLAYING" and self.engine.turn == "ENEMY_TURN":
@@ -190,11 +218,14 @@ class TableView(arcade.View):
 
             if self.engine.turn == "PLAYER_TURN":
                 hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
-                if hit_enemy:
-                    card = hit_enemy[-1]
-                    self.enemy_sprites.remove(card)
-                    self.player_sprites.append(card)
-                    self.animated_to_draw(card, is_player=True)
+                if self.pesca:
+                    if hit_enemy:
+                        self.pesca = False
+                        card = hit_enemy[-1]
+                        self.enemy_sprites.remove(card)
+                        self.player_sprites.append(card)
+                        self.animated_to_draw(card, is_player=True)
+
             else:
                 return
 
