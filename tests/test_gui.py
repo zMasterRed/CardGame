@@ -38,8 +38,8 @@ class TestMenuView:
             view = MenuView()
             view.on_draw()
 
-            assert mock_draw_text.call_count == 4
-            assert mock_draw_rect.call_count == 3
+            assert mock_draw_text.call_count == 3
+            assert mock_draw_rect.call_count == 2
 
     # TESTS FOR MOUSE CLICKS
     @pytest.mark.parametrize(
@@ -62,16 +62,6 @@ class TestMenuView:
 
             mock_target_view.assert_called_once_with(view)
             view.window.show_view.assert_called_once_with(mock_target_instance)
-
-    def test_mouse_press_history_button_prints(self):
-        with patch("builtins.print") as mock_print:
-            view = MenuView()
-            view.window = MagicMock()
-
-            view.on_mouse_press(400, 240, 1, 0)
-
-            mock_print.assert_called_once_with("History")
-            view.window.show_view.assert_not_called()
 
     @pytest.mark.parametrize(
         "click_x, click_y",
