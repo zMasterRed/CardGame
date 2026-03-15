@@ -47,8 +47,5 @@ class RuleView(arcade.View):
         settings.draw_exit_button()
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
-        if (
-            settings.fX / 2 - settings.bX / 2 < x < settings.fX / 2 + settings.bX / 2
-            and 100 - settings.bY / 2 < y < 100 + settings.bY / 2
-        ):
+        if settings.check_exit_clicked(x, y):
             self.window.show_view(self.menu_view)
