@@ -134,7 +134,7 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
     
-    def animated_card(self, card: arcade.Sprite, is_player: bool):
+    def animated_pairse(self, card: arcade.Sprite, is_player: bool):
         if is_player:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 - 50
@@ -160,16 +160,7 @@ class TableView(arcade.View):
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
 
-            # Controllo carte giocatore
-            hit_player = arcade.get_sprites_at_point((x, y), self.player_sprites)
-            if hit_player:
-                self.animated_card(hit_player[-1], is_player= True)
-                return # Esci dopo aver trovato la carta
-
-            # Controllo carte avversario
-            hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
-            if hit_enemy:
-                self.animated_card(hit_enemy[-1], is_player =False)
+            print("Game function")
 
         else:
             if (
