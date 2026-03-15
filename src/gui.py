@@ -65,9 +65,6 @@ class MenuView(arcade.View):
             # Rule Button
             topRule = 320 + bY2
             bottomRule = 320 - bY2
-            # History Button
-            topHistory = 240 + bY2
-            bottomHistory = 240 - bY2
 
             if bottomPlay < y < topPlay:
                 # open Table
