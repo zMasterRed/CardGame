@@ -9,12 +9,16 @@ class Player:
 
     def check_pairs(self) -> None:
         new_hand: list[Card] = []
+        discarded_card = None
         for card in self.hand:
             if card in new_hand:
+                discarded_card = card
                 new_hand.remove(card)
             else:
                 new_hand.append(card)
         self.hand = new_hand
+        return discarded_card
+        
 
     def decrease_health(self) -> None:
         if self.health <= 0:

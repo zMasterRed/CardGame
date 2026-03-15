@@ -81,7 +81,6 @@ class GameEngine:
             if card.is_joker:
                 self.apply_damage(is_player=True)
 
-            self.player.check_pairs()
             random.shuffle(self.enemy.hand)
             self.update_game_status()
 
@@ -112,8 +111,5 @@ class GameEngine:
 
         if random_card.is_joker:
             self.apply_damage(is_player=False)
-
-        self.enemy.check_pairs()
-        self.update_game_status()
 
         return random_card
