@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
-import pytest
 import arcade
+import pytest
 
 from src.table import TableView
 
@@ -26,7 +26,9 @@ class TestTableView:
 
     @pytest.fixture(autouse=True)
     def mock_arcade_text(self):
-        with patch("src.table.arcade.Text", side_effect=lambda *args, **kwargs: MagicMock()) as mock_text:
+        with patch(
+            "src.table.arcade.Text", side_effect=lambda *args, **kwargs: MagicMock()
+        ) as mock_text:
             yield mock_text
 
     @pytest.fixture
@@ -53,10 +55,10 @@ class TestTableView:
         mock_engine.get_enemy_hand.return_value = [mock_card2]
 
         view = TableView(MagicMock())
-        
+
         assert len(view.player_sprites) == 1
         assert len(view.enemy_sprites) == 1
-        
+
         assert mock_card1.center_x == 200
         assert mock_card1.center_y == 150
         mock_card1.flip.assert_called_once_with(face_up=True)
@@ -68,15 +70,16 @@ class TestTableView:
     def test_on_draw_playing_status(self, mock_engine):
         view = TableView(MagicMock())
         mock_engine.game_status = "PLAYING"
-        
-        with patch("src.table.arcade.draw_line") as mock_draw_line, \
-             patch("src.table.arcade.draw_rect_outline") as mock_draw_rect:
-             
+
+        with patch("src.table.arcade.draw_line") as mock_draw_line, patch(
+            "src.table.arcade.draw_rect_outline"
+        ) as mock_draw_rect:
+
             view.player_sprites = MagicMock()
             view.enemy_sprites = MagicMock()
-            
+
             view.on_draw()
-            
+
             mock_draw_line.assert_called_once()
             assert mock_draw_rect.call_count == 2
             view.player_sprites.draw.assert_called_once()
@@ -88,16 +91,16 @@ class TestTableView:
             ("LOSE", "Oh noo\nGame Over\nTry again !!"),
             ("HEART_WIN", "YOU WIN !!\nOpponent has no lives left"),
             ("HEART_LOSE", "Game Over\nNo lives remaining\ntry again !!"),
-        ]
+        ],
     )
     def test_on_draw_game_over_statuses(self, mock_engine, status, expected_text):
         view = TableView(MagicMock())
         mock_engine.game_status = status
-        
+
         with patch("src.table.settings.draw_exit_button") as mock_exit_btn:
-             
+
             view.on_draw()
-            
+
             assert view.msg.text == expected_text
             view.msg.draw.assert_called_once()
             mock_exit_btn.assert_called_once()
@@ -106,9 +109,9 @@ class TestTableView:
     def test_lose_heart_changes_color(self, mock_engine):
         view = TableView(MagicMock())
         mock_engine.player.health = 2
-        
+
         view.lose_heart(is_player=True)
-        
+
         assert view.player_heart[2].color == arcade.color.BLACK
 
     # TESTS FOR MOUSE CLICKS
@@ -117,17 +120,18 @@ class TestTableView:
         mock_engine.game_status = "PLAYING"
         mock_engine.turn = "PLAYER_TURN"
         view.pesca = True
-        
+
         mock_card = MagicMock()
         view.enemy_sprites.append(mock_card)
-        
-        with patch("src.table.arcade.get_sprites_at_point") as mock_get_sprites, \
-             patch.object(view, "animated_to_draw") as mock_animated:
-             
+
+        with patch(
+            "src.table.arcade.get_sprites_at_point"
+        ) as mock_get_sprites, patch.object(view, "animated_to_draw") as mock_animated:
+
             mock_get_sprites.return_value = [mock_card]
-            
+
             view.on_mouse_press(100, 100, 1, 0)
-            
+
             assert view.pesca is False
             assert mock_card not in view.enemy_sprites
             assert mock_card in view.player_sprites
@@ -137,9 +141,9 @@ class TestTableView:
         mock_menu = MagicMock()
         view = TableView(mock_menu)
         view.window = MagicMock()
-        
-        mock_engine.game_status = "LOSE" 
-        
+
+        mock_engine.game_status = "LOSE"
+
         view.on_mouse_press(500, 100, 1, 0)
-        
+
         view.window.show_view.assert_called_once_with(mock_menu)
