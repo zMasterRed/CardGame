@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-import arcade
 import pytest
 
 from src.gui import MenuView, runMenu
@@ -29,7 +28,7 @@ class TestMenuView:
         with patch("src.gui.arcade.set_background_color") as mock_set_bg:
             view = MenuView()
             view.on_show_view()
-            mock_set_bg.asset_called_once_with((6, 56, 138))
+            mock_set_bg.assert_called_once_with((6, 56, 138))
 
     def test_on_draw_calls_arcade_drawing_functions(self):
         with patch("src.gui.arcade.draw_text") as mock_draw_text, patch(
@@ -62,7 +61,6 @@ class TestMenuView:
             view.on_mouse_press(click_x, click_y, 1, 0)
 
             mock_target_view.assert_called_once_with(view)
-
             view.window.show_view.assert_called_once_with(mock_target_instance)
 
     @patch("builtins.print")
@@ -94,19 +92,18 @@ class TestMenuView:
         view.window.show_view.assert_not_called()
 
 
-class TestRunMenu:
+# TEST FOR MAIN ENTRY POINT
+def test_run_menu_initializes_and_runs_arcade():
+    with patch("src.gui.arcade.Window") as mock_window_class, patch(
+        "src.gui.MenuView"
+    ) as mock_menu_class, patch("src.gui.arcade.run") as mock_run:
 
-    def test_run_menu_initializes_and_runs_arcade(self):
-        with patch("src.gui.arcade.Window") as mock_window_class, patch(
-            "src.gui.MenuView"
-        ) as mock_menu_class, patch("src.gui.arcade.run") as mock_run:
+        mock_window_instance = mock_window_class.return_value
+        mock_menu_instance = mock_menu_class.return_value
 
-            mock_window_instance = mock_window_class.return_value
-            mock_menu_instance = mock_menu_class.return_value
+        runMenu()
 
-            runMenu()
-
-            mock_window_class.assert_called_once()
-            mock_menu_class.assert_called_once()
-            mock_window_instance.show_view.assert_called_once_with(mock_menu_instance)
-            mock_run.assert_called_once()
+        mock_window_class.assert_called_once()
+        mock_menu_class.assert_called_once()
+        mock_window_instance.show_view.assert_called_once_with(mock_menu_instance)
+        mock_run.assert_called_once()
