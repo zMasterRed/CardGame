@@ -2,7 +2,7 @@ import arcade
 
 from src import settings
 from src.gameEngine import GameEngine
-
+from src.card import Card
 
 class TableView(arcade.View):
     def __init__(self, menu_view):
@@ -130,7 +130,7 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-    def animated_pairse(self, card: arcade.Sprite, is_player: bool):
+    def animated_pairse(self, card: Card, is_player: bool):
         if is_player:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 - 50
@@ -147,18 +147,18 @@ class TableView(arcade.View):
 
             arcade.schedule_once(lambda dt: self.final_move(card, 85, 460), 2.5)
 
-    def final_move(self, card: arcade.Sprite, x: int, y: int):
+    def final_move(self, card: Card, x: int, y: int):
         card.center_x = x
         card.center_y = y
 
-    def animated_to_draw(self, card: arcade.Sprite, is_player: bool):
+    def animated_to_draw(self, card: Card, is_player: bool):
         card.center_x = settings.fX / 2 - 150
         card.center_y = settings.fY / 2 - 50
         if is_player:
             card.flip(face_up=is_player)
         arcade.schedule_once(lambda dt: self.hand_move(card, is_player), 2.0)
 
-    def hand_move(self, card: arcade.Sprite, is_player: bool):
+    def hand_move(self, card: Card, is_player: bool):
         if is_player:
             self.engine.player_draws_card(card)
             if card.is_joker:
