@@ -53,10 +53,20 @@ class TableView(arcade.View):
             self.player_heart.append(p_heart)
 
         self.txt_enemy_c = arcade.Text(
-            f"Enemy couples: {len(self.enemy_pairs)}", 30, 375, arcade.color.WHITE, 14, bold=True
+            f"Enemy couples: {len(self.enemy_pairs)}",
+            30,
+            375,
+            arcade.color.WHITE,
+            14,
+            bold=True,
         )
         self.txt_player_c = arcade.Text(
-            f"Player couples: {len(self.player_pairs)}", 30, 315, arcade.color.WHITE, 14, bold=True
+            f"Player couples: {len(self.player_pairs)}",
+            30,
+            315,
+            arcade.color.WHITE,
+            14,
+            bold=True,
         )
         self.update_cards_position()
 
@@ -170,10 +180,10 @@ class TableView(arcade.View):
             if card.is_joker:
                 self.lose_heart(is_player=True)
             self.update_cards_position()
-            
+
             coppia = self.engine.player.check_pairs()
             if coppia is not None:
-                self.animated_pairs(coppia,is_player)
+                self.animated_pairs(coppia, is_player)
 
             self.engine.switch_turn()
 
@@ -182,10 +192,10 @@ class TableView(arcade.View):
             if card.is_joker:
                 self.lose_heart(is_player=False)
             card.flip(face_up=is_player)
-            
+
             coppia = self.engine.enemy.check_pairs()
             if coppia is not None:
-                self.animated_pairs(coppia,is_player)
+                self.animated_pairs(coppia, is_player)
 
             self.update_cards_position()
             self.pesca = True
@@ -203,8 +213,6 @@ class TableView(arcade.View):
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
-
-            
 
             if self.engine.turn == "PLAYER_TURN":
                 hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)

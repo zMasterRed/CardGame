@@ -18,7 +18,6 @@ class Player:
                 new_hand.append(card)
         self.hand = new_hand
         return discarded_card
-        
 
     def decrease_health(self) -> None:
         if self.health <= 0:
