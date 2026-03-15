@@ -1,8 +1,8 @@
 import arcade
 
 from src import settings
-from src.gameEngine import GameEngine
 from src.card import Card
+from src.gameEngine import GameEngine
 
 
 class TableView(arcade.View):
