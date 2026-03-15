@@ -16,7 +16,7 @@ def save_game_result(result: str, player_pairs: int, hearts_left: int):
     try:
         with open(FILE_PATH, "w", encoding="utf-8") as f:
             json.dump(history, f, indent=4)
-    except Exception as e:
+    except OSError as e:
         print(f"Errore nel salvataggio della cronologia: {e}")
 
 
