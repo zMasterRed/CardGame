@@ -8,6 +8,7 @@ from src.player import Player
 type GameStatus = Literal["PLAYING", "WIN", "LOSE", "HEART_WIN", "HEART_LOSE"]
 type Turn = Literal["PLAYER_TURN", "ENEMY_TURN"]
 
+
 class GameEngine:
     def __init__(self) -> None:
         self.deck: list[Card] = []

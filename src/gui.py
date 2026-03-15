@@ -50,20 +50,6 @@ class MenuView(arcade.View):
             font_size=20,
         )
 
-        arcade.draw_rect_filled(
-            arcade.XYWH(settings.fX / 2, 240, settings.bX, settings.bY),
-            arcade.color.LIGHT_GRAY,
-        )
-        arcade.draw_text(
-            "History",
-            settings.fX / 2,
-            240,
-            arcade.color.BLACK,
-            anchor_x="center",
-            anchor_y="center",
-            font_size=20,
-        )
-
     # in arcade version 3.0+ x, y are float, int otherwise
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         bY2 = settings.bY / 2
@@ -92,10 +78,6 @@ class MenuView(arcade.View):
                 # open Rule
                 rule = RuleView(self)
                 self.window.show_view(rule)
-
-            if bottomHistory < y < topHistory:
-                # open History
-                print("History")
 
 
 def runMenu():
