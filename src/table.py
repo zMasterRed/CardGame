@@ -15,6 +15,9 @@ class TableView(arcade.View):
         self.player_sprites = arcade.SpriteList()
         self.enemy_sprites = arcade.SpriteList()
 
+        self.player_pairs = arcade.SpriteList()
+        self.enemy_pairs = arcade.SpriteList() 
+
         self.enemy_heart = []
         self.player_heart = []
 
@@ -98,6 +101,9 @@ class TableView(arcade.View):
             self.player_sprites.draw()
             self.enemy_sprites.draw()
 
+            self.player_pairs.draw()
+            self.enemy_pairs.draw()
+
             arcade.draw_rect_outline(
                 arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
             )
@@ -127,11 +133,43 @@ class TableView(arcade.View):
         ptr = target.health
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
+    
+    def animated_card(self, card: arcade.Sprite, is_player: bool):
+        if is_player:
+            card.center_x = settings.fX / 2 - 300
+            card.center_y = settings.fY / 2 - 50
+
+            self.player_pairs.append(card)
+
+            arcade.schedule_once(lambda dt: self.final_move(card, 85, 240), 2.5)
+        else:
+            card.center_x = settings.fX/2 - 300
+            card.center_y = settings.fY/2 + 50
+            card.flip(face_up=True)
+
+            self.enemy_pairs.append(card)
+
+            arcade.schedule_once(lambda dt: self.final_move(card,85,460), 2.5)
+
+    def final_move(self, card: arcade.Sprite, x: int, y: int):
+        card.center_x = x
+        card.center_y = y
+        
+
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
 
-            print("Game function")
+            # Controllo carte giocatore
+            hit_player = arcade.get_sprites_at_point((x, y), self.player_sprites)
+            if hit_player:
+                self.animated_card(hit_player[-1], is_player= True)
+                return # Esci dopo aver trovato la carta
+
+            # Controllo carte avversario
+            hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
+            if hit_enemy:
+                self.animated_card(hit_enemy[-1], is_player =False)
 
         else:
             if (
