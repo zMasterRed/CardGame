@@ -156,29 +156,29 @@ class TableView(arcade.View):
         card.center_y = y
         
     def animated_to_draw(self, card: arcade.Sprite, is_player: bool):
-        if is_player:
-            card.center_x = settings.fX / 2 - 150
-            card.center_y = settings.fY / 2 - 50
-
-            if is_player:
-                self.player_sprites.remove(card)
-            else:
-                self.enemy_sprites.remove(card)
-            card.flip(face_up=is_player)
-            arcade.schedule_once(lambda dt: self.hand_move(card, is_player), 2.0)
-            
+        card.center_x = settings.fX / 2 - 150
+        card.center_y = settings.fY / 2 - 50
+        card.flip(face_up=is_player)
+        arcade.schedule_once(lambda dt: self.hand_move(card, is_player), 2.0)
+        
 
     def hand_move(self, card: arcade.Sprite, is_player: bool):
         if is_player:
-            self.player_sprites.append(card)
+            self.engine.player_draws_card(card)
         else:
-            self.enemy_sprites.append(card)
+            self.engine.enemy_draws_card(card)
+        self.update_cards_position()
 
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
-
-            print("Game function")
+            
+            hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
+            if hit_enemy:
+                card = hit_enemy[-1]
+                self.enemy_sprites.remove(card) 
+                self.player_sprites.append(card)
+                self.animated_to_draw(card, is_player=True)
 
         else:
             if (

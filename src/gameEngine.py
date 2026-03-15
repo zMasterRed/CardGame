@@ -14,6 +14,7 @@ class GameEngine:
         self.player: Player | None = None
         self.enemy: Player | None = None
         self.game_status: GameStatus = "PLAYING"
+        self.turn = "PLAYER_TURN"
         self.setup_game()
 
     def setup_game(self) -> None:
@@ -31,6 +32,12 @@ class GameEngine:
 
         self.player.check_pairs()
         self.enemy.check_pairs()
+
+    def switch_turn(self):
+        if self.turn == "PLAYER_TURN":
+            self.turn = "ENEMY_TURN"
+        else:
+            self.turn = "PLAYER_TURN"
 
     def get_player_hand(self) -> list[Card]:
 
