@@ -7,7 +7,7 @@ class Player:
         self.hand = hand
         self.health = health
 
-    def check_pairs(self) -> None:
+    def check_pairs(self) -> Card | None:
         new_hand: list[Card] = []
         discarded_card = None
         for card in self.hand:

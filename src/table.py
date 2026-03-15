@@ -86,7 +86,7 @@ class TableView(arcade.View):
         for i, card in enumerate(enemy_hand):
             card.center_x = 200 + (i * 60)
             card.center_y = 550
-            card.flip(face_up=True)
+            card.flip(face_up=False)
             self.enemy_sprites.append(card)
 
     def on_show_view(self):
@@ -143,7 +143,7 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
-    def animated_pairs(self, card: arcade.Sprite, is_player: bool):
+    def animated_pairs(self, card: Card, is_player: bool):
         if is_player:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 - 50
