@@ -112,4 +112,5 @@ class GameEngine:
         if random_card.is_joker:
             self.apply_damage(is_player=False)
 
+        random.shuffle(self.enemy.hand)
         return random_card

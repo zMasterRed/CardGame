@@ -76,7 +76,7 @@ class TableView(arcade.View):
         for i, card in enumerate(enemy_hand):
             card.center_x = 200 + (i * 60)
             card.center_y = 550
-            card.flip(face_up=False)
+            card.flip(face_up=True)
             self.enemy_sprites.append(card)
 
     def on_show_view(self):
