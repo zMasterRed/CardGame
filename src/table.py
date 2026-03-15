@@ -147,6 +147,7 @@ class TableView(arcade.View):
         if is_player:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 - 50
+            self.update_cards_position()
 
             self.player_pairs.append(card)
             self.txt_player_c.text = f"Player couples: {len(self.player_pairs)}"
@@ -155,6 +156,7 @@ class TableView(arcade.View):
         else:
             card.center_x = settings.fX / 2 - 300
             card.center_y = settings.fY / 2 + 50
+            self.update_cards_position()
             card.flip(face_up=True)
 
             self.enemy_pairs.append(card)
@@ -187,7 +189,7 @@ class TableView(arcade.View):
 
             self.engine.switch_turn()
 
-            arcade.schedule_once(self.enemy_draw, 2.0)
+            arcade.schedule_once(self.enemy_draw, 2.5)
         else:
             if card.is_joker:
                 self.lose_heart(is_player=False)
