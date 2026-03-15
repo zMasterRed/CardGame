@@ -165,20 +165,35 @@ class TableView(arcade.View):
     def hand_move(self, card: arcade.Sprite, is_player: bool):
         if is_player:
             self.engine.player_draws_card(card)
-        else:
-            self.engine.enemy_draws_card(card)
-        self.update_cards_position()
+            self.update_cards_position()
+            self.engine.switch_turn()
+            
+            arcade.schedule_once(self.enemy_draw, 2.0)
+        else:   
+            self.update_cards_position()
+            self.engine.switch_turn()
+
+    def enemy_draw(self, time: float):
+        if self.engine.game_status == "PLAYING" and self.engine.turn == "ENEMY_TURN":
+            card = self.engine.enemy_draws_card()
+            if card:
+                if card in self.player_sprites:
+                    self.player_sprites.remove(card)
+                self.animated_to_draw(card, is_player=False)
 
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
             
-            hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
-            if hit_enemy:
-                card = hit_enemy[-1]
-                self.enemy_sprites.remove(card) 
-                self.player_sprites.append(card)
-                self.animated_to_draw(card, is_player=True)
+            if self.engine.turn == "PLAYER_TURN":
+                hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
+                if hit_enemy:
+                    card = hit_enemy[-1]
+                    self.enemy_sprites.remove(card)
+                    self.player_sprites.append(card)
+                    self.animated_to_draw(card, is_player=True)
+            else:
+                return
 
         else:
             if (
