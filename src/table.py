@@ -171,9 +171,9 @@ class TableView(arcade.View):
         self.engine.update_game_status()
         if self.engine.game_status != "PLAYING":
             save_game_result(
-                self.engine.game_status, 
-                len(self.player_pairs), 
-                self.engine.player.health
+                self.engine.game_status,
+                len(self.player_pairs),
+                self.engine.player.health,
             )
 
     def animated_to_draw(self, card: Card, is_player: bool):
