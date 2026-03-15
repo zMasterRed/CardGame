@@ -1,6 +1,7 @@
 import arcade
 
 from src import settings
+from src.card import Card
 from src.gameEngine import GameEngine
 
 
@@ -15,14 +16,14 @@ class TableView(arcade.View):
         self.player_sprites = arcade.SpriteList()
         self.enemy_sprites = arcade.SpriteList()
 
+        self.player_pairs = arcade.SpriteList()
+        self.enemy_pairs = arcade.SpriteList()
+
         self.enemy_heart = []
         self.player_heart = []
 
         self.txt_enemy_c = None
         self.txt_player_c = None
-
-        self.card_X = 56
-        self.card_Y = 76
 
         self.msg = arcade.Text(
             "",
@@ -98,6 +99,9 @@ class TableView(arcade.View):
             self.player_sprites.draw()
             self.enemy_sprites.draw()
 
+            self.player_pairs.draw()
+            self.enemy_pairs.draw()
+
             arcade.draw_rect_outline(
                 arcade.XYWH(85, 460, 75, 105), arcade.color.WHITE, border_width=2
             )
@@ -119,7 +123,6 @@ class TableView(arcade.View):
             settings.draw_exit_button()
 
     def lose_heart(self, is_player: bool):
-        self.engine.apply_damage(is_player)
 
         target = self.engine.player if is_player else self.engine.enemy
         heart_txt = self.player_heart if is_player else self.enemy_heart
@@ -128,10 +131,72 @@ class TableView(arcade.View):
         if 0 <= ptr < len(heart_txt):
             heart_txt[ptr].color = arcade.color.BLACK
 
+    def animated_pairse(self, card: Card, is_player: bool):
+        if is_player:
+            card.center_x = settings.fX / 2 - 300
+            card.center_y = settings.fY / 2 - 50
+
+            self.player_pairs.append(card)
+
+            arcade.schedule_once(lambda dt: self.final_move(card, 85, 240), 2.5)
+        else:
+            card.center_x = settings.fX / 2 - 300
+            card.center_y = settings.fY / 2 + 50
+            card.flip(face_up=True)
+
+            self.enemy_pairs.append(card)
+
+            arcade.schedule_once(lambda dt: self.final_move(card, 85, 460), 2.5)
+
+    def final_move(self, card: Card, x: int, y: int):
+        card.center_x = x
+        card.center_y = y
+
+    def animated_to_draw(self, card: Card, is_player: bool):
+        card.center_x = settings.fX / 2 - 150
+        card.center_y = settings.fY / 2 - 50
+        if is_player:
+            card.flip(face_up=is_player)
+        arcade.schedule_once(lambda dt: self.hand_move(card, is_player), 2.0)
+
+    def hand_move(self, card: Card, is_player: bool):
+        if is_player:
+            self.engine.player_draws_card(card)
+            if card.is_joker:
+                self.lose_heart(is_player=True)
+
+            self.update_cards_position()
+            self.engine.switch_turn()
+
+            arcade.schedule_once(self.enemy_draw, 2.0)
+        else:
+            if card.is_joker:
+                self.lose_heart(is_player=False)
+            card.flip(face_up=is_player)
+            self.update_cards_position()
+            self.engine.switch_turn()
+
+    def enemy_draw(self, _time: float):
+        if self.engine.game_status == "PLAYING" and self.engine.turn == "ENEMY_TURN":
+            card = self.engine.enemy_draws_card()
+            if card:
+                if card in self.player_sprites:
+                    self.player_sprites.remove(card)
+                self.enemy_sprites.append(card)
+                self.animated_to_draw(card, is_player=False)
+
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.engine.game_status == "PLAYING":
 
-            print("Game function")
+            if self.engine.turn == "PLAYER_TURN":
+                hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
+                if hit_enemy:
+                    card = hit_enemy[-1]
+                    self.enemy_sprites.remove(card)
+                    self.player_sprites.append(card)
+                    self.animated_to_draw(card, is_player=True)
+            else:
+                return
 
         else:
             if (
