@@ -1,9 +1,9 @@
 import arcade
 
 from src import settings
+from src.history import HistoryView
 from src.rule import RuleView
 from src.table import TableView
-from src.history import HistoryView
 
 
 class MenuView(arcade.View):

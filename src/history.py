@@ -1,5 +1,6 @@
 import json
 import os
+
 import arcade
 
 from src import settings
