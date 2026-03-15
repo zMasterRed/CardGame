@@ -78,6 +78,9 @@ class GameEngine:
             self.enemy.hand.remove(card)
             self.player.hand.append(card)
 
+            if card.is_joker:
+                self.apply_damage(is_player=True)
+
             self.player.check_pairs()
             random.shuffle(self.enemy.hand)
             self.update_game_status()

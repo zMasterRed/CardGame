@@ -125,7 +125,6 @@ class TableView(arcade.View):
             settings.draw_exit_button()
 
     def lose_heart(self, is_player: bool):
-        self.engine.apply_damage(is_player)
 
         target = self.engine.player if is_player else self.engine.enemy
         heart_txt = self.player_heart if is_player else self.enemy_heart
@@ -158,18 +157,25 @@ class TableView(arcade.View):
     def animated_to_draw(self, card: arcade.Sprite, is_player: bool):
         card.center_x = settings.fX / 2 - 150
         card.center_y = settings.fY / 2 - 50
-        card.flip(face_up=is_player)
+        if is_player:
+            card.flip(face_up=is_player)
         arcade.schedule_once(lambda dt: self.hand_move(card, is_player), 2.0)
         
 
     def hand_move(self, card: arcade.Sprite, is_player: bool):
         if is_player:
             self.engine.player_draws_card(card)
+            if card.is_joker:
+                self.lose_heart(is_player=True)
+
             self.update_cards_position()
             self.engine.switch_turn()
             
             arcade.schedule_once(self.enemy_draw, 2.0)
         else:   
+            if card.is_joker:
+                self.lose_heart(is_player=False)
+            card.flip(face_up=is_player)
             self.update_cards_position()
             self.engine.switch_turn()
 
@@ -179,6 +185,7 @@ class TableView(arcade.View):
             if card:
                 if card in self.player_sprites:
                     self.player_sprites.remove(card)
+                self.enemy_sprites.append(card)
                 self.animated_to_draw(card, is_player=False)
 
 
