@@ -44,11 +44,13 @@ def test_click_on_button_exits():
     view.on_mouse_press(center_x, center_y, 1, 0)
     view.window.show_view.assert_called_once_with(mock_menu)
 
-
+@patch('src.rule.settings')
 def test_click_outside_button_does_nothing():
+    mock_settings.check_exit_clicked.return_value = False
     mock_menu = MagicMock()
     view = RuleView(mock_menu)
 
+    view.window = MagicMock()
     view.on_mouse_press(0, 800, 1, 0)
     view.window.show_view.assert_not_called()
 
