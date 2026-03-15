@@ -25,7 +25,7 @@ class TableView(arcade.View):
         self.txt_enemy_c = None
         self.txt_player_c = None
 
-        self.pesca = True
+        self.can_draw = True
 
         self.msg = arcade.Text(
             "",
@@ -150,7 +150,7 @@ class TableView(arcade.View):
             self.update_cards_position()
 
             self.player_pairs.append(card)
-            self.txt_player_c.text = f"Player couples: {len(self.player_pairs)}"
+            self.txt_player_c.text = f"Player pairs: {len(self.player_pairs)}"
 
             arcade.schedule_once(lambda dt: self.final_move(card, 85, 240), 2.5)
         else:
@@ -160,7 +160,7 @@ class TableView(arcade.View):
             card.flip(face_up=True)
 
             self.enemy_pairs.append(card)
-            self.txt_enemy_c.text = f"Player enemy: {len(self.enemy_pairs)}"
+            self.txt_enemy_c.text = f"Enemy pairs: {len(self.enemy_pairs)}"
 
             arcade.schedule_once(lambda dt: self.final_move(card, 85, 460), 2.5)
 
@@ -183,9 +183,9 @@ class TableView(arcade.View):
                 self.lose_heart(is_player=True)
             self.update_cards_position()
 
-            coppia = self.engine.player.check_pairs()
-            if coppia is not None:
-                self.animated_pairs(coppia, is_player)
+            pair = self.engine.player.check_pairs()
+            if pair is not None:
+                self.animated_pairs(pair, is_player)
 
             self.engine.switch_turn()
 
@@ -195,12 +195,12 @@ class TableView(arcade.View):
                 self.lose_heart(is_player=False)
             card.flip(face_up=is_player)
 
-            coppia = self.engine.enemy.check_pairs()
-            if coppia is not None:
-                self.animated_pairs(coppia, is_player)
+            pair = self.engine.enemy.check_pairs()
+            if pair is not None:
+                self.animated_pairs(pair, is_player)
 
             self.update_cards_position()
-            self.pesca = True
+            self.can_draw = True
             self.engine.switch_turn()
         self.engine.update_game_status()
 
@@ -218,9 +218,9 @@ class TableView(arcade.View):
 
             if self.engine.turn == "PLAYER_TURN":
                 hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
-                if self.pesca:
+                if self.can_draw:
                     if hit_enemy:
-                        self.pesca = False
+                        self.can_draw = False
                         card = hit_enemy[-1]
                         self.enemy_sprites.remove(card)
                         self.player_sprites.append(card)

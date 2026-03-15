@@ -119,7 +119,8 @@ class TestTableView:
         view = TableView(MagicMock())
         mock_engine.game_status = "PLAYING"
         mock_engine.turn = "PLAYER_TURN"
-        view.pesca = True
+
+        view.can_draw = True
 
         mock_card = MagicMock()
         view.enemy_sprites.append(mock_card)
@@ -132,7 +133,7 @@ class TestTableView:
 
             view.on_mouse_press(100, 100, 1, 0)
 
-            assert view.pesca is False
+            assert view.can_draw is False
             assert mock_card not in view.enemy_sprites
             assert mock_card in view.player_sprites
             mock_animated.assert_called_once_with(mock_card, is_player=True)
