@@ -13,7 +13,7 @@ class MenuView(arcade.View):
         self.clear()
 
         arcade.draw_text(
-            "CardGame",
+            "OldMaid",
             settings.fX / 2,
             600,
             arcade.color.WHITE_SMOKE,
@@ -99,7 +99,7 @@ class MenuView(arcade.View):
 
 
 def runMenu():
-    window = arcade.Window(settings.fX, settings.fY, "CardGame - Menu")
+    window = arcade.Window(settings.fX, settings.fY, "OldMaid - Menu")
     menu = MenuView()
     window.show_view(menu)
     arcade.run()
