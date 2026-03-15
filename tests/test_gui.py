@@ -63,15 +63,15 @@ class TestMenuView:
             mock_target_view.assert_called_once_with(view)
             view.window.show_view.assert_called_once_with(mock_target_instance)
 
-    @patch("builtins.print")
-    def test_mouse_press_history_button_prints(self, mock_print):
-        view = MenuView()
-        view.window = MagicMock()
+    def test_mouse_press_history_button_prints(self):
+        with patch("builtins.print") as mock_print:
+            view = MenuView()
+            view.window = MagicMock()
 
-        view.on_mouse_press(400, 240, 1, 0)
+            view.on_mouse_press(400, 240, 1, 0)
 
-        mock_print.assert_called_once_with("History")
-        view.window.show_view.assert_not_called()
+            mock_print.assert_called_once_with("History")
+            view.window.show_view.assert_not_called()
 
     @pytest.mark.parametrize(
         "click_x, click_y",
