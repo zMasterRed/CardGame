@@ -6,7 +6,7 @@ from src.exceptions import PlayerNotFound
 from src.player import Player
 
 type GameStatus = Literal["PLAYING", "WIN", "LOSE", "HEART_WIN", "HEART_LOSE"]
-
+type Turn = Literal["PLAYER_TURN", "ENEMY_TURN"]
 
 class GameEngine:
     def __init__(self) -> None:
@@ -14,7 +14,7 @@ class GameEngine:
         self.player: Player | None = None
         self.enemy: Player | None = None
         self.game_status: GameStatus = "PLAYING"
-        self.turn = "PLAYER_TURN"
+        self.turn: Turn = "PLAYER_TURN"
         self.setup_game()
 
     def setup_game(self) -> None:
@@ -33,7 +33,7 @@ class GameEngine:
         self.player.check_pairs()
         self.enemy.check_pairs()
 
-    def switch_turn(self):
+    def switch_turn(self) -> None:
         if self.turn == "PLAYER_TURN":
             self.turn = "ENEMY_TURN"
         else:
