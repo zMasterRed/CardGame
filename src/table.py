@@ -24,9 +24,6 @@ class TableView(arcade.View):
         self.txt_enemy_c = None
         self.txt_player_c = None
 
-        self.card_X = 56
-        self.card_Y = 76
-
         self.msg = arcade.Text(
             "",
             settings.fX / 2,
@@ -178,7 +175,7 @@ class TableView(arcade.View):
             self.update_cards_position()
             self.engine.switch_turn()
 
-    def enemy_draw(self, time: float):
+    def enemy_draw(self, _time: float):
         if self.engine.game_status == "PLAYING" and self.engine.turn == "ENEMY_TURN":
             card = self.engine.enemy_draws_card()
             if card:
