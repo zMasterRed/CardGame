@@ -24,7 +24,6 @@ class TableView(arcade.View):
         self.txt_enemy_c = None
         self.txt_player_c = None
 
-        # Input lock to prevent multiple clicks while an animation is running
         self.can_draw = True
 
         # Reusable endgame message overlay
@@ -208,8 +207,6 @@ class TableView(arcade.View):
                 self.animated_pairs(pair, is_player)
 
             self.update_cards_position()
-
-            # Release input lock so the player can draw on their next turn
             self.can_draw = True
             self.engine.switch_turn()
 
@@ -231,12 +228,10 @@ class TableView(arcade.View):
 
             if self.engine.turn == "PLAYER_TURN":
                 hit_enemy = arcade.get_sprites_at_point((x, y), self.enemy_sprites)
-
-                # 'can_draw' acts as a debounce so the player can't spam clicks during animations
                 if self.can_draw:
                     if hit_enemy:
                         self.can_draw = False
-                        card = hit_enemy[-1]  # Select the top card if sprites overlap
+                        card = hit_enemy[-1]
                         self.enemy_sprites.remove(card)
                         self.player_sprites.append(card)
                         self.animated_to_draw(card, is_player=True)
