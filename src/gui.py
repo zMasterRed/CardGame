@@ -3,6 +3,7 @@ import arcade
 from src import settings
 from src.rule import RuleView
 from src.table import TableView
+from src.history import HistoryView
 
 
 class MenuView(arcade.View):
@@ -95,7 +96,8 @@ class MenuView(arcade.View):
 
             if bottomHistory < y < topHistory:
                 # open History
-                print("History")
+                history = HistoryView(self)
+                self.window.show_view(history)
 
 
 def runMenu():
