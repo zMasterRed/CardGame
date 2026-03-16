@@ -52,7 +52,7 @@ class TableView(arcade.View):
             self.player_heart.append(p_heart)
 
         self.txt_enemy_c = arcade.Text(
-            f"Enemy couples: {len(self.enemy_pairs)}",
+            f"Enemy pairs: {len(self.enemy_pairs)}",
             30,
             375,
             arcade.color.WHITE,
@@ -60,7 +60,7 @@ class TableView(arcade.View):
             bold=True,
         )
         self.txt_player_c = arcade.Text(
-            f"Player couples: {len(self.player_pairs)}",
+            f"Player pairs: {len(self.player_pairs)}",
             30,
             315,
             arcade.color.WHITE,
