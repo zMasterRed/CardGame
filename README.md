@@ -5,16 +5,17 @@ This project is a digital adaptation of the classic card game **Old Maid**, buil
 
 You play against a computer opponent. The game consists of 19 cards: 9 matching pairs and 1 Joker. 
 
+![table gameplay](assets/image.png)
+
 **Rules:**
 * At the start, cards are dealt to both players. Any matching pairs in your initial hand are automatically discarded.
-* Players take turns drawing one random card from their opponent's hand.
+* Players take turns drawing one card from their opponent's hand.
 * If the drawn card makes a pair with a card in your hand, the pair is discarded.
 * **The Twist:** You have 3 lives (hearts). If you draw the Joker from your opponent, you lose 1 heart!
 * **Win Conditions:** You win if you are the first to discard all your cards, or if your opponent loses all their hearts.
 * **Lose Conditions:** You lose if you run out of hearts, or if your opponent clears their hand and leaves you holding the Joker.
 
 ## Technical features
-This project is built using modern Python development practices and features a robust underlying architecture.
 
 * **Graphics & GUI:** Built using the [Python Arcade](https://api.arcade.academy/) library for 2D rendering, sprite management, and mouse interactions.
 * **Architecture:** Used Object-Oriented Programming (OOP) separating the game logic engine (`GameEngine`) from the graphical views (`MenuView`, `TableView`, `RuleView`).
@@ -24,7 +25,7 @@ This project is built using modern Python development practices and features a r
 
 ## Prerequisites
 To run this game locally, you will need:
-* **Python**: Python 3.12 or higher (the CI pipeline supports up to Python 3.14).
+* **Python**: Python 3.12 or higher.
 * **Git** *(Optional)*: To clone the repository to your local machine.
 
 ## How to install
